@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  role: MyString
+  title: MyString
+  client: MyString
+  production_company: MyString
+  category_id: 1
+  date: 2023-01-10
+  agency: MyString
+
+two:
+  role: MyString
+  title: MyString
+  client: MyString
+  production_company: MyString
+  category_id: 1
+  date: 2023-01-10
+  agency: MyString
