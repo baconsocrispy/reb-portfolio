@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   root 'pages#home'
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+  resources :projects
+
+  # intercepts route requests other than backend api (/projects) and 
+  # rereoutes to the homepage so that react can handle frontend routing
+  get '*path', to: 'pages#home'
 end

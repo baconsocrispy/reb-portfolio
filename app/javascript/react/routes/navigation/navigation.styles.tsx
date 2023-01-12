@@ -6,7 +6,8 @@ export const NavigationContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  background-color: red;
+  font-family: var(--theme-font-family-secondary);
+  font-weight: 700;
 `
 
 export const LogoContainer = styled(Link)`
@@ -15,7 +16,7 @@ export const LogoContainer = styled(Link)`
   display: flex;
   align-items: center;
   color: white;
-  background-color: blue;
+  background-color: var(--theme-font-color-primary);
   padding: 0 2%;
 `
 
