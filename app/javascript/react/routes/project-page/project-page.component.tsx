@@ -2,12 +2,11 @@ import { FC } from "react"
 
 import { ProjectType } from "../../utils/backend_api"
 
-// get project title from params
+// get project title from params (useParams)
 
 // lookup project title in project context (need to refactor for context)
 
 // display project details and video
-
 
 const ProjectPage = () => {
   return (

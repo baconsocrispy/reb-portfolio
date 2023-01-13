@@ -13,7 +13,7 @@ const Navigation = () => {
     <Fragment>
       <NavigationContainer>
         <LogoContainer to='/'>
-          <span>Rebecca Eddy Bacon</span>
+          <span>Rebecca Eddy Bacon | Producer</span>
         </LogoContainer>
         
         <NavigationLinks>

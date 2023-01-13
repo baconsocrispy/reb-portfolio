@@ -8,6 +8,7 @@ export const NavigationContainer = styled.div`
   justify-content: space-between;
   font-family: var(--theme-font-family-secondary);
   font-weight: 700;
+  background-color: var(--theme-font-color-primary)
 `
 
 export const LogoContainer = styled(Link)`

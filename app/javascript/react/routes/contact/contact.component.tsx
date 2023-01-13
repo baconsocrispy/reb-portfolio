@@ -1,6 +1,11 @@
+import { Fragment } from "react"
+import PageHeader from "../../components/page-header/page-header.component"
+
 const Contact = () => {
   return (
-    <div>Contact</div>
+    <Fragment>
+      <PageHeader pageName='CONTACT' />
+    </Fragment>
   )
 }
 

@@ -1,6 +1,12 @@
+import { Fragment } from "react"
+
+import PageHeader from "../../components/page-header/page-header.component"
+
 const About = () => {
   return (
-    <div>About</div>
+    <Fragment>
+      <PageHeader pageName='ABOUT'/>
+    </Fragment>
   )
 }
 

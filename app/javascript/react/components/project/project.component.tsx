@@ -7,7 +7,6 @@ import {
   ProjectContainer, 
   ProjectThumbnail, 
   ProjectTitle,
-  ProjectRole
 } from "./project.styles"
 
 type ProjectProps = {
@@ -17,7 +16,6 @@ type ProjectProps = {
 const Project: FC<ProjectProps> = ({ project }) => {
   // destructure project elements
   const { 
-    role, 
     title,
     thumbnail_url 
   } = project
@@ -31,7 +29,6 @@ const Project: FC<ProjectProps> = ({ project }) => {
     <ProjectContainer onClick={ onNavigateHandler }>
       <ProjectThumbnail src={ thumbnail_url } />
       <ProjectTitle>{ title }</ProjectTitle>
-      <ProjectRole>{ role }</ProjectRole>
     </ProjectContainer>
   )
 }
