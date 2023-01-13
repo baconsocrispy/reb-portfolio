@@ -1,22 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 
 import Project from "../project/project.component";
-import { getProjects, ProjectType } from "../../utils/backend_api";
 
 import { ProjectsContainer } from "./project-index.styles"
+import { ProjectsContext } from "../../contexts/projects.context";
 
 const ProjectIndex = () => {
-  // initialize state with an empty ProjectType array
-  const [ projects, setProjects ] = useState<ProjectType[]>([])
-  
-  // on mount, get all projects from db and set in projects array
-  useEffect(() => {
-    const getProjectsArray = async () => {
-      const projectsArray = await getProjects()
-      setProjects(projectsArray)
-    }
-    getProjectsArray()
-  }, [])
+  const { projects } = useContext(ProjectsContext)
   
   // iterate through projects array, creating a project component for each one
   return (

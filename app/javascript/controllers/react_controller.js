@@ -4,7 +4,10 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from "react-router-dom"; // adds routing to child components
 
+import { ProjectsProvider } from "../react/contexts/projects.context";
+
 import App from "../react/App";
+
 
 // Connects to data-controller="react"
 export default class extends Controller {
@@ -15,7 +18,9 @@ export default class extends Controller {
       // strict mode adds checks/warnings in development mode
       <React.StrictMode>
         <BrowserRouter>
-          <App />
+          <ProjectsProvider>
+            <App />
+          </ProjectsProvider>
         </BrowserRouter> 
       </React.StrictMode>
     );
