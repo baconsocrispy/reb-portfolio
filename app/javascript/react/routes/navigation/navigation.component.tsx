@@ -15,10 +15,11 @@ const Navigation = () => {
         <LogoContainer to='/'>
           <span>Rebecca Eddy Bacon</span>
         </LogoContainer>
+        
         <NavigationLinks>
           <NavigationLink to='/'>Portfolio</NavigationLink>
-          <NavigationLink to='/'>About</NavigationLink>
-          <NavigationLink to='/'>Contact</NavigationLink>
+          <NavigationLink to='about'>About</NavigationLink>
+          <NavigationLink to='contact'>Contact</NavigationLink>
         </NavigationLinks>  
       </NavigationContainer>
       <Outlet />

@@ -32,7 +32,7 @@ export const NavigationLink = styled(Link)`
   display: flex;
   align-items: center;
   color: white;
-  background-color: green;
+  background-color: var(--theme-font-color-primary);
   padding: 0 2%;
   cursor: pointer;
 `

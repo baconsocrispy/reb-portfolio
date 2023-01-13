@@ -1,9 +1,9 @@
 import ProjectIndex from "../../components/project-index/project-index.component"
 
-const Home = () => {
+const Portfolio = () => {
   return (
     <ProjectIndex />
   )
 }
 
-export default Home
+export default Portfolio
