@@ -1,25 +1,12 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: %i[ show edit update destroy ]
+  before_action :set_project, only: %i[ update destroy ]
 
   # GET /projects or /projects.json
   def index
     @projects = Project.all
     respond_to do |format|
-      format.json { render json: @projects}
+      format.json { render json: ProjectSerializer.new(@projects).serializable_hash.to_json }
     end
-  end
-
-  # GET /projects/1 or /projects/1.json
-  def show
-  end
-
-  # GET /projects/new
-  def new
-    @project = Project.new
-  end
-
-  # GET /projects/1/edit
-  def edit
   end
 
   # POST /projects or /projects.json

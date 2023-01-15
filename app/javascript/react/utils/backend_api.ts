@@ -1,19 +1,28 @@
-// creates a Project type from Project model
+// create a Project type from the json-serialized model
 export type ProjectType = {
-  id: number;
-  role: string;
-  title: string;
-  date: Date;
-  client?: string;
-  production_company?: string;
-  agency?: string;
-  project_url?: string;
-  thumbnail_url?: string;
+  id: string;
+  type: string;
+  attributes: {
+    id: string;
+    role: string;
+    title: string;
+    date: Date;
+    client?: string;
+    production_company?: string;
+    agency?: string;
+    project_url?: string;
+    thumbnail_url?: string;
+  }
 }
 
-// fetches and returns an array of all projects in the database
-export const getProjects = async () => {
-  const projectsResponse = await fetch('projects.json');
-  const projects: ProjectType[] = await projectsResponse.json();
-  return projects
+// create a projectMap type representing the json response from the backend
+export type ProjectMap = {
+  data: ProjectType[] 
+}
+
+// primary api call to backend to retrieve all projects in the db
+export const getProjectMap = async () => {
+  const projectMapResponse = await fetch('projects.json');
+  const projectMap: ProjectMap = await projectMapResponse.json();
+  return projectMap 
 }

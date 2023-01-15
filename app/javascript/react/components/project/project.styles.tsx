@@ -2,36 +2,32 @@ import styled from "styled-components";
 
 export const ProjectContainer = styled.div`
   width: 100%;
-  margin-top: 1em;
-  display: flex;
-  flex-wrap: wrap;
-
-  &:hover {
-    cursor: pointer;
-  }
+  margin: auto;
 
   @media (min-width: 700px) {
-    min-width: 200px;
-    max-width: 250px;
+    max-width: 50%;
   }
 `
-
-export const ProjectThumbnail = styled.img`
-  width: 100%;
-
-  @media (min-width: 700px) {
-    max-height: 140px;
-    object-fit: cover;
-  }
+// padding-bottom helps preserve 16:9 aspect ratio for video
+export const ContentContainer = styled.div`
+  position: relative;
+  padding-bottom: 56.25%;
 `
 
-export const ProjectTitle = styled.span`
+// absolutely positioing the video in the container allows 
+// height and width to adjust responsively
+export const Content = styled.iframe`
+  position: absolute;
   width: 100%;
-  font-weight: var(--theme-font-weight-bold);
-  color: var(--theme-font-color-primary);
+  height: 100%;
 `
-export const ProjectRole = styled.span`
+
+export const DetailsContainer = styled.div`
   width: 100%;
+`
+export const ProjectDetail = styled.span`
+  width: 100%;
+  display: block;
   font-weight: var(--theme-font-weight-light);;
   color: var(--theme-font-color-primary);
 `

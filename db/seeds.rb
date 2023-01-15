@@ -32,7 +32,6 @@ def create_or_update_projects
       )
     
     else
-      p row[0]
       Project.create!(
         role: row[0],
         title: row['title'],

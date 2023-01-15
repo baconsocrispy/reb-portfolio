@@ -90,9 +90,20 @@ Add styled component types:
 
 `yarn add --dev @types/styled-components`
 
+## ADD JSON SERIALIZER FOR FORMATTING API RESPONSES 
+I used the jsonapi-serializer gem, originally built by Netflix, which is supposed to have superior speed.
+Documentation here: https://github.com/jsonapi-serializer/jsonapi-serializer
+
+I had to manually add the gem to the gemfile and bundle install 
+`gem 'jsonapi-serializer'`
+
+The serializer itself gets saved in the app/serializers folder as project_serializer.rb
+Documentation is clear.
+
 ## HELP FROM
 * React w/Rails 7 Setup: https://www.youtube.com/watch?v=yoLJXjEV2nM
 * TypeScript: https://www.strictmode.io/articles/setting-up-rails-7-for-typescript-and-react
 
-
+## TO DO
+* 
 
