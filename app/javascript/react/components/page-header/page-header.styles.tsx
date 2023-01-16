@@ -5,6 +5,7 @@ export const PageHeaderContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0 2%;
 `
 
 export const Header = styled.span`

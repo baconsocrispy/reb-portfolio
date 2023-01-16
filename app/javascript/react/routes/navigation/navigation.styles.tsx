@@ -8,7 +8,7 @@ export const NavigationContainer = styled.div`
   justify-content: space-between;
   font-family: var(--theme-font-family-secondary);
   font-weight: 700;
-  background-color: var(--theme-font-color-primary)
+  /* background-color: var(--theme-font-color-primary) */
 `
 
 export const LogoContainer = styled(Link)`
@@ -16,8 +16,8 @@ export const LogoContainer = styled(Link)`
   width: auto;
   display: flex;
   align-items: center;
-  color: white;
-  background-color: var(--theme-font-color-primary);
+  color: var(--theme-font-color-primary);
+  /* background-color: var(--theme-font-color-primary); */
   padding: 0 2%;
 `
 
@@ -33,8 +33,7 @@ export const NavigationLink = styled(Link)`
   height: 100%;
   display: flex;
   align-items: center;
-  color: white;
-  background-color: var(--theme-font-color-primary);
+  color: var(--theme-font-color-primary);
   padding: 0 2%;
   cursor: pointer;
 `

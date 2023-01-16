@@ -34,7 +34,7 @@ const Project:FC<ProjectProps> = ({ project }) => {
       </ContentContainer>
 
       <DetailsContainer>
-        <ProjectDetail>Role: { role }</ProjectDetail>
+        <ProjectDetail>{ role }</ProjectDetail>
         { client && 
           <ProjectDetail>Client: { client }</ProjectDetail> 
         }
