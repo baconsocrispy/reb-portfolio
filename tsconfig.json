@@ -23,6 +23,6 @@
   },
   "include": [
     "app/javascript",
-    // "src/custom.d.ts" // typescript module created to handle SVG typing
+    "./global.d.ts" // module created to handle png types
   ]
 }

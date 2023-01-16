@@ -42,6 +42,10 @@ tell package.json to load js as jsx by adding the following flag to the end of t
 
 `--loader:.js=jsx`
 
+if adding static images to the app, you need to add a loader for .png files as well
+
+`loader:.png=dataurl`
+
 You might need to restart server
 
 ## CREATE THE APP COMPONENT
@@ -82,6 +86,12 @@ You can auto-generate this file with:
 Add the react types:
 `yarn add --dev @types/react @types/react-dom @types/react-router-dom`
 
+To handle png types, create a `global.d.ts` file in the root directory
+add the declaration below to the file:
+`declare module '*.png';`
+add the path to that file to the include object in the tsconfig file  
+
+
 ## ADD STYLED COMPONENTS
 Using styled components within rails allows you to keep your styles in the same directory as the component. [I think].
 `yarn add styled-components`
@@ -105,5 +115,7 @@ Documentation is clear.
 * TypeScript: https://www.strictmode.io/articles/setting-up-rails-7-for-typescript-and-react
 
 ## TO DO
-* 
-
+* Find a way to have styled components class names show up in devtools
+* Loading spinner for each route
+* Add category sorting
+* console errors reloading project pages

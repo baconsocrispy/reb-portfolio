@@ -16,22 +16,23 @@ const Project:FC<ProjectProps> = ({ project }) => {
   // destructure project details
   const { attributes } = project
   const {
-    title,
     role,
     client,
     production_company,
     project_url,
     agency
   } = attributes
+
   return (
     <ProjectContainer>
       <ContentContainer className="content-container">
         <Content
-          src={project_url}
+          src={ project_url }
           allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
         ></Content>
       </ContentContainer>
+
       <DetailsContainer>
         <ProjectDetail>Role: { role }</ProjectDetail>
         { client && 
