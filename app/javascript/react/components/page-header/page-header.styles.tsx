@@ -6,6 +6,7 @@ export const PageHeaderContainer = styled.div`
   align-items: center;
   justify-content: center;
   padding: 0 2%;
+  color: var(--theme-font-color-primary);
 `
 
 export const Header = styled.span`

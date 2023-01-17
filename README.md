@@ -132,3 +132,4 @@ end
 * Loading spinner for each route
 * Add category sorting
 * console errors reloading project pages
+* Default settings for components with style variables

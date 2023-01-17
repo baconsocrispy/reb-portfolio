@@ -48,7 +48,7 @@ const ContactForm = () => {
         
         {errors.message && <FormErrorMessage>{ errors.message.message }</FormErrorMessage>}
         <FormLabel htmlFor="message">Message</FormLabel>
-        <FormMessage id='message' {...register('message', { required: 'You must add a message' })}/>
+        <FormMessage id='message' {...register('message', { required: 'Please add a message' })}/>
 
         <FormSubmitButton type="submit">Submit</FormSubmitButton>
       </form>

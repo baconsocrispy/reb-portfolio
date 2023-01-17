@@ -1,23 +1,24 @@
 import styled from "styled-components";
 
 export const FormContainer = styled.div`
-  position: absolute;
-  display: flex;
-  width: 30%;
-  height: 65%;
-  right: 17%;
-  top: 10%;
-  padding: 2% 2%;
-  background-color: white;
-  border-radius: 5%;
+
+  padding: 5%;
+
+  @media (min-width: 700px) {
+    position: absolute;
+    display: flex;
+    width: 30%;
+    height: 65%;
+    right: 17%;
+    top: 10%;
+    padding: 2% 2%;
+    background-color: white;
+    border-radius: 5%;
+    color: var(--theme-font-color-primary);
 
   form {
     width: 100%;
   }
-
-  @media (max-width: 700px) {
-    width: 100%;
-    height: 100%;
   }
 `
 
@@ -52,7 +53,7 @@ export const FormSubmitButton = styled.button`
   color: white;
   border-radius: 5%;
   font-family: var(--theme-font-family-secondary);
-  padding: 0 2%;
+  padding: 0% 2%;
   font-size: 1em;
   cursor: pointer;
 

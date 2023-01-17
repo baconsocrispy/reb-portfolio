@@ -1,18 +1,21 @@
 import { Fragment } from "react"
 
-import image from "../../../../assets/images/on_set.png"
+import image from "../../../../assets/images/contact.png"
+
 import ContactForm from "../../components/contact-form/contact-form.component"
 import PageHeader from "../../components/page-header/page-header.component"
-import { HeroContainer, HeroImage } from "./contact.styles"
+
+import { HeroImage } from "../../hero-image/hero-image.styles"
+import { PageContent } from "../../components/page-content/page-content.styles"
 
 const Contact = () => {
   return (
     <Fragment>
       <PageHeader pageName='CONTACT' />
-      <HeroContainer>
+      <PageContent>
         <ContactForm />
         <HeroImage src={ image } />
-      </HeroContainer>
+      </PageContent>
     </Fragment>
   )
 }
