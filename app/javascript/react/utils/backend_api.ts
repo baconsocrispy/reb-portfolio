@@ -1,3 +1,5 @@
+import { FormData } from "../components/contact-form/contact-form.component";
+
 // create a Project type from the json-serialized model
 export type ProjectType = {
   id: string;
@@ -25,4 +27,31 @@ export const getProjectMap = async () => {
   const projectMapResponse = await fetch('projects.json');
   const projectMap: ProjectMap = await projectMapResponse.json();
   return projectMap 
+}
+
+export const sendContactMessage = async (data: FormData) => {
+  // get the csrf token from meta element to send in the post request header
+  const csrf_token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')
+  
+  try {
+    // send a fetch request to the rails contact controller create action
+    const response = await fetch('/contact_mailer', {
+      method: 'POST',
+      headers: { 
+        'X-CSRF-Token': csrf_token,
+        'Content-Type': 'application/json' 
+      },
+      body: JSON.stringify(data)
+    });
+    // convert to json
+    const json = await response.json();
+
+    if (json.success) {
+      console.log(json);
+    } else {
+      console.log('Error sending email:', json.error)
+    }
+  } catch (error) {
+    console.log('Error sending email', error)
+  }
 }

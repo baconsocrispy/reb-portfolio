@@ -38,6 +38,8 @@ Add an anchor div to the homepage view with Rails content_tag and make sure to c
 
 `yarn add react react-dom react-router-dom`
 
+also add `react-hook-form` if planning to create simple forms (i.e. contact form)
+
 tell package.json to load js as jsx by adding the following flag to the end of the build script:
 
 `--loader:.js=jsx`
