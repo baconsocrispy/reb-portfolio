@@ -1,4 +1,3 @@
-import { forwardRef } from "react";
 import styled from "styled-components";
 
 export const FormContainer = styled.div`
@@ -14,6 +13,11 @@ export const FormContainer = styled.div`
 
   form {
     width: 100%;
+  }
+
+  @media (max-width: 700px) {
+    width: 100%;
+    height: 100%;
   }
 `
 

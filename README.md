@@ -112,6 +112,17 @@ I had to manually add the gem to the gemfile and bundle install
 The serializer itself gets saved in the app/serializers folder as project_serializer.rb
 Documentation is clear.
 
+## SET AND LOAD ENVIRONMENT VARIABLES
+I opted to create a custom `local_env.yml` file in the config folder and added env variables as key/value pairs
+Then I added the code below to the `application.rb` file to load the variables on initialization
+
+config.before_configuration do
+  env_file = File.join(Rails.root, 'config', 'local_env.yml')
+  YAML.load(File.open(env_file)).each do |key, value|
+    ENV[key.to_s] = value
+  end if File.exists?(env_file)
+end
+
 ## HELP FROM
 * React w/Rails 7 Setup: https://www.youtube.com/watch?v=yoLJXjEV2nM
 * TypeScript: https://www.strictmode.io/articles/setting-up-rails-7-for-typescript-and-react

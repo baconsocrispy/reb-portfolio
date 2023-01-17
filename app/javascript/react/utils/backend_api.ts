@@ -30,7 +30,7 @@ export const getProjectMap = async () => {
 }
 
 export const sendContactMessage = async (data: FormData) => {
-  // get the csrf token from meta element to send in the post request header
+  // get the rails csrf token from meta element to send in the request header
   const csrf_token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')
   
   try {
