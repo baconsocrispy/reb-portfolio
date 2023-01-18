@@ -3,8 +3,6 @@ import styled from "styled-components";
 export const ProjectContainer = styled.div`
   width: 100%;
   margin-top: 1em;
-  display: flex;
-  flex-wrap: wrap;
 
   &:hover {
     cursor: pointer;
@@ -17,6 +15,7 @@ export const ProjectContainer = styled.div`
 `
 
 export const ProjectThumbnail = styled.img`
+  display: block;
   width: 100%;
 
   @media (min-width: 700px) {
@@ -26,6 +25,7 @@ export const ProjectThumbnail = styled.img`
 `
 
 export const ProjectTitle = styled.span`
+  display: block;
   width: 100%;
   font-weight: var(--theme-font-weight-bold);
   color: var(--theme-font-color-primary);

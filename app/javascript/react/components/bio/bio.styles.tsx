@@ -6,11 +6,10 @@ export const BioContainer = styled.div`
 
   @media (min-width: 700px) {
     position: absolute;
-    width: 40%;
-    min-height: 65%;
-    max-height: 80%;
-    top: 10%;
-    left: 20%;
+    width: 30%;
+    max-height: 60%;
+    top: 20%;
+    left: 30%;
     background-color: white;
     border-radius: 3%;
     overflow: scroll;

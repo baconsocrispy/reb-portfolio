@@ -9,6 +9,7 @@
 require 'csv'
 
 def create_or_update_projects
+  Project.destroy_all
 
   # read and parse data from projects csv file 
   csv_text = File.read(Rails.root.join('lib', 'seeds', 'reb_portfolio_projects.csv'))
@@ -17,6 +18,7 @@ def create_or_update_projects
   # iterate through each project in the csv and 
   # create or update records as needed
   csv.each do |row|
+    p row
     project = Project.where(:title => row['title'])
 
     if !project.empty?
