@@ -18,7 +18,6 @@ def create_or_update_projects
   # iterate through each project in the csv and 
   # create or update records as needed
   csv.each do |row|
-    p row
     project = Project.where(:title => row['title'])
 
     if !project.empty?
@@ -46,6 +45,7 @@ def create_or_update_projects
       )
     end
   end
+  p 'Seeded projects'
 end
 
 create_or_update_projects
