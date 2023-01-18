@@ -7,8 +7,8 @@ class ContactController < ApplicationController
     begin
       ContactMailer.send_email(sender, email, message).deliver_now
       render json: { success: true, message: 'Thanks for your message!' }
-    rescue Exception => e
-      puts e
+    rescue => error
+      puts error
       render json: { success: false, message: 'There was a problem sending your message' }
     end
   end
