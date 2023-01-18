@@ -8,7 +8,11 @@ export const NavigationContainer = styled.div`
   justify-content: space-between;
   font-family: var(--theme-font-family-secondary);
   font-weight: 700;
-  /* background-color: var(--theme-font-color-primary) */
+  font-size: .75em;
+
+  @media (min-width: 389px) {
+    font-size: 1em;
+  }
 `
 
 export const LogoContainer = styled(Link)`
@@ -17,7 +21,6 @@ export const LogoContainer = styled(Link)`
   display: flex;
   align-items: center;
   color: var(--theme-font-color-primary);
-  /* background-color: var(--theme-font-color-primary); */
   padding: 0 2%;
 `
 
