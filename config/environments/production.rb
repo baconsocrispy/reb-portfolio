@@ -66,12 +66,12 @@ Rails.application.configure do
   
   # configure action_mailer for gmail
   config.action_mailer.smtp_settings = {
-    address:              'smtp.gmail.com',
-    port:                 587,
-    domain:               'gmail.com',
+    address:              'smtpout.secureserver.net',
+    port:                 25,
+    domain:               'rebeccaeddybacon.com',
     user_name:            ENV['ADMIN_EMAIL'],
     password:             ENV['ADMIN_PASSWORD'],
-    authentication:       'plain',
+    authentication:       :login,
     enable_starttls_auto: true,
     open_timeout:         5,
     read_timeout:         5 

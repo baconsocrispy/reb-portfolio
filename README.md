@@ -127,9 +127,22 @@ end
 * React w/Rails 7 Setup: https://www.youtube.com/watch?v=yoLJXjEV2nM
 * TypeScript: https://www.strictmode.io/articles/setting-up-rails-7-for-typescript-and-react
 
+## HOSTING SETUP
+To configure rails to send smtp emails via action_mailer I needed to configure `config.action_mailer.smtp_settings` as follows:
+`address:              'smtpout.secureserver.net',`
+`port:                 25,`
+`domain:               'rebeccaeddybacon.com',`
+`user_name:            ENV['ADMIN_EMAIL'],`
+`password:             ENV['ADMIN_PASSWORD'],`
+`authentication:       :login,`
+`enable_starttls_auto: true,`
+`open_timeout:         5,`
+`read_timeout:         5 `
+
 ## TO DO
 * Find a way to have styled components class names show up in devtools
 * Loading spinner for each route
 * Add category sorting
 * console errors reloading project pages
 * Default settings for components with style variables
+* Add 'send success' message to contact page 
