@@ -1,11 +1,12 @@
 class ContactMailer < ApplicationMailer
   default from: 'rebecca@rebeccaeddybacon.com'
 
-  def send_email(email, message) 
+  def send_email(sender, email, message)
+    @sender = sender
     @email = email
     @message = message
     mail(
-      to: 'rebecca.m.eddy@gmail.com', 
+      to: 'carterbacon.code@gmail.com', 
       subject: 'Portfolio Site | New Contact Form Submission'
     )
     render 'send_email'

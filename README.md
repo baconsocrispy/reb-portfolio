@@ -143,6 +143,8 @@ To configure rails to send smtp emails via action_mailer I needed to configure `
 * Find a way to have styled components class names show up in devtools
 * Loading spinner for each route
 * Add category sorting
-* console errors reloading project pages
+* console errors reloading project pages: look into this library https://github.com/zzarcon/default-passive-events
 * Default settings for components with style variables
 * Add 'send success' message to contact page 
+* headers in backend api is showing a type error
+

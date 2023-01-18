@@ -13,6 +13,7 @@ import {
 } from "./contact-form.styles"
 
 export type FormData = {
+  name: string;
   email: string;
   message: string;
 }
@@ -22,25 +23,26 @@ const ContactForm = () => {
   const { 
     register, 
     handleSubmit, 
-    reset, 
-    watch, 
+    reset,
     formState: { errors } 
   } = useForm<FormData>()
 
   // api call to rails backend to send form message
   // need to give it the SubmitHandler type from useForm and 
-  // pass FormData type
+  // pass FormData type defined above
   const onFormSubmit: SubmitHandler<FormData> = (data) => {
-    console.log('start submit')
     sendContactMessage(data)
     reset();
-    console.log(data)
   }
 
   return (
     <FormContainer>
       <form onSubmit={ handleSubmit(onFormSubmit) }>
         <FormHeader>SEND ME A MESSAGE</FormHeader>
+
+        {errors.name && <FormErrorMessage>{errors.name.message}</FormErrorMessage>}
+        <FormLabel htmlFor="name">Name</FormLabel>
+        <FormInput type='text' {...register('name', { required: 'Please let me know your name'})} />
 
         {errors.email && <FormErrorMessage>{ errors.email.message }</FormErrorMessage>}
         <FormLabel htmlFor="email">Email</FormLabel>

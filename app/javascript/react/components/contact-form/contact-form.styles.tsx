@@ -15,10 +15,11 @@ export const FormContainer = styled.div`
     background-color: white;
     border-radius: 5%;
     color: var(--theme-font-color-primary);
+    overflow: auto;
 
-  form {
-    width: 100%;
-  }
+    form {
+      width: 100%;
+    }
   }
 `
 
