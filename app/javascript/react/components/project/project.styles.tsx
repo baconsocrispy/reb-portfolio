@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const ProjectContainer = styled.div`
-  width: 100%;
+  width: 95%;
   margin: auto;
 
   @media (min-width: 700px) {
@@ -12,6 +12,7 @@ export const ProjectHeader = styled.h1`
   width: 100%;
   font-family: var(--theme-font-family-secondary);
   color: var(--theme-font-color-primary);
+  text-align: center;
 `
 
 // padding-bottom helps preserve 16:9 aspect ratio for video
