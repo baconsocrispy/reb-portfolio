@@ -24,15 +24,7 @@ const ProjectPage = () => {
   const { attributes: projectDetails } = project 
   
   return (
-    <Fragment>
-      { projectDetails && (
-        <Fragment>
-          <PageHeader pageName={ projectDetails.title.toUpperCase() } />
-          <Project project={ project }/>
-        </Fragment>
-      )
-      }
-    </Fragment>
+    projectDetails && <Project project={ project }/>
   )
 }
 

@@ -8,6 +8,12 @@ export const ProjectContainer = styled.div`
     max-width: 50%;
   }
 `
+export const ProjectHeader = styled.h1`
+  width: 100%;
+  font-family: var(--theme-font-family-secondary);
+  color: var(--theme-font-color-primary);
+`
+
 // padding-bottom helps preserve 16:9 aspect ratio for video
 export const ContentContainer = styled.div`
   position: relative;

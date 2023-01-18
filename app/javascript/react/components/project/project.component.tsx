@@ -5,7 +5,8 @@ import {
   Content, 
   ContentContainer, 
   DetailsContainer, 
-  ProjectDetail 
+  ProjectDetail, 
+  ProjectHeader
 } from "./project.styles"
 
 type ProjectProps = {
@@ -16,6 +17,7 @@ const Project:FC<ProjectProps> = ({ project }) => {
   // destructure project details
   const { attributes } = project
   const {
+    title,
     role,
     client,
     production_company,
@@ -25,6 +27,7 @@ const Project:FC<ProjectProps> = ({ project }) => {
 
   return (
     <ProjectContainer>
+      <ProjectHeader>{ title }</ProjectHeader>
       <ContentContainer className="content-container">
         <Content
           src={ project_url }

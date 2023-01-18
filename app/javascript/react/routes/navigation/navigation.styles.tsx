@@ -10,7 +10,7 @@ export const NavigationContainer = styled.div`
   font-weight: 700;
   font-size: .75em;
 
-  @media (min-width: 389px) {
+  @media (min-width: 700px) {
     font-size: 1em;
   }
 `
