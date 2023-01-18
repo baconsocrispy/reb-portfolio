@@ -69,3 +69,8 @@ export const FormErrorMessage = styled.span`
   color: red;
   font-size: 0.75em;
 `
+
+export const SubmitSuccessMessage = styled.span`
+  color: seagreen;
+  font-size: 0.75em;
+`

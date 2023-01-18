@@ -46,12 +46,8 @@ export const sendContactMessage = async (data: FormData) => {
     // convert to json
     const json = await response.json();
 
-    // if (json.success) {
-    //   return json
-    // } else {
-    //   console.log('Error sending email:', json.error)
-    // }
     return json
+    
   } catch (error) {
     console.log('Error sending email', error)
   }

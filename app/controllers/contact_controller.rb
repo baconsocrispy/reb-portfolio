@@ -5,10 +5,11 @@ class ContactController < ApplicationController
     message = params[:message]
 
     begin
-      ContactMailer.send_email(sender, email, message).deliver_later
+      ContactMailer.send_email(sender, email, message).deliver_now
       render json: { success: true, message: 'Thanks for your message!' }
-    rescue
-      render json: { success: false, message: 'The message failed to send' }
+    rescue Exception => e
+      puts e
+      render json: { success: false, message: 'There was a problem sending your message' }
     end
   end
 end
