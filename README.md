@@ -152,11 +152,13 @@ To configure rails to send smtp emails via action_mailer I needed to configure `
 ## TO DO
 
 * Loading spinner for each route
-* Add category sorting
 * Default settings for components with style variables
 * headers in backend api is showing a type error
 * Restyle about page bio
 * Admin section
+* Add social links
+* Lazy load videos
+* Hover effect for project previews
 
 * console errors reloading project pages: look into this library https://github.com/zzarcon/default-passive-events
 * Find a way to have styled components class names show up in devtools (Requires Babel configuration with ESBuild)
