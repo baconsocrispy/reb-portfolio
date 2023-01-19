@@ -16,7 +16,8 @@ test everything works: `bin/dev`
 
 ## CREATE A STIMULUS CONTROLLER
 
-Create a stimulus controller that will manage the React javascript:
+Create a stimulus controller that will manage the React javascript.
+This operates as the index.js file would in a create-react-app.
 
 `rails g stimulus react`
 
@@ -29,6 +30,13 @@ Create a homepage controller:
 Set root route in config/routes.rb: 
 
 Change `get 'pages/home'` to `root 'pages#home'`
+
+To prevent rails from rerouting away from the homepage add the following as the last route:
+
+`get '*path', to: 'pages#home'`
+
+This sends all routes back to the homepage to allow react to handle routing.
+Put any api json request routes before it. 
 
 Add an anchor div to the homepage view with Rails content_tag and make sure to connect to the stimulus controller:
 
@@ -122,6 +130,8 @@ config.before_configuration do
     ENV[key.to_s] = value
   end if File.exists?(env_file)
 end
+
+In Heroku production these need to be added as config vars under settings.
 
 ## HELP FROM
 * React w/Rails 7 Setup: https://www.youtube.com/watch?v=yoLJXjEV2nM
