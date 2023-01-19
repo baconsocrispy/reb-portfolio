@@ -6,14 +6,10 @@ class ContactMailer < ApplicationMailer
     @email = email
     @message = message
 
-    begin
-      mail(
-        to: 'carterbacon.code@gmail.com', 
-        subject: 'Portfolio Site | New Contact Form Submission'
-      )
-      render 'send_email'
-    rescue => error
-      puts "Error sending email to #{ email }: #{ error.message }"
-    end
+    mail(
+      to: 'carterbacon.code@gmail.com', 
+      subject: 'Portfolio Site | New Contact Form Submission'
+    )
+    render 'send_email'
   end
 end
