@@ -124,12 +124,14 @@ Documentation is clear.
 I opted to create a custom `local_env.yml` file in the config folder and added env variables as key/value pairs
 Then I added the code below to the `application.rb` file to load the variables on initialization
 
+```
 config.before_configuration do
   env_file = File.join(Rails.root, 'config', 'local_env.yml')
   YAML.load(File.open(env_file)).each do |key, value|
     ENV[key.to_s] = value
   end if File.exists?(env_file)
 end
+```
 
 In Heroku production these need to be added as config vars under settings.
 
@@ -149,6 +151,123 @@ To configure rails to send smtp emails via action_mailer I needed to configure `
 `open_timeout:         5,`
 `read_timeout:         5 `
 
+## ADDING DEVISE FOR AUTHENTICATION
+Add the gem
+`bundle add devise`
+
+Install devise
+`rails g devise:install`
+
+In `config/initializers/devise.rb` uncomment and set navigation_formats to an empty array:
+`config.navigational_formats = []`
+
+Create User/Admin model: `rails g devise admin`
+
+I added a column for username: 
+`rails g migration AddUsernameToAdmins username:string:null:false`
+
+Run migration `rails db:migrate`
+
+Create sessions and registrations controllers
+`rails g devise:controllers admins -c sessions registrations`
+
+Tell the controllers to only repond with json format. 
+At the head of each controller add:
+`respond_to :json`
+
+Serialize the admin model with jsonapi-serializer gem
+`rails g serializer admin id email username created_at`
+
+Setup controllers to handle json request/responses properly:
+Registrations controller: 
+
+```
+class Admins::RegistrationsController < Devise::RegistrationsController
+  respond_to :json
+
+  private
+  # need to explicitly tell the controllers to respond with json 
+  # formatted per the below
+  def respond_with(resource, _opts = {})
+    if resource.persisted?
+      render json: {
+        status: {
+          code: 200,
+          message: 'Signup Success'
+        },
+        data: AdminSerializer.new(resource).serializable_hash[:data][:attributes]
+      }
+    else
+      render json: {
+        status: {
+          message: "Admin creation failed. #{ 
+            resource.errors.full_messages.to_sentence
+          }"
+        }
+      }, status: :unprocessable_entity
+    end
+  end
+
+  # needed to create custom params to allow username to be permitted
+  # 'sign_up_params' is how Devise sends params to create method
+  def sign_up_params
+    params.require(:admin).permit(:email, :username, :password, :password_confirmation)
+  end
+end
+```
+
+Sessions Controller:
+
+```
+class Admins::SessionsController < Devise::SessionsController
+  respond_to :json  
+  
+  def get_admin
+    # returns a serialized Admin object with current_admin attributes
+    if (current_admin)
+      render json: {
+        status: {
+          code: 200
+        },
+        data: AdminSerializer.new(current_admin).serializable_hash[:data][:attributes] 
+      }, status: :ok
+    else
+      render json: { 
+        message: 'No current admin',
+      }
+    end
+  end
+
+  private 
+  def respond_with(resource, _opts = {})
+    render json: {
+      status: {
+        code: 200,
+        message: 'Admin logged in successfully.'
+      },
+      data: AdminSerializer.new(resource).serializable_hash[:data][:attributes]
+    }, status: :ok
+  end
+
+  def respond_to_on_destroy
+    if current_admin.nil?
+      render json: {
+        status: 200,
+        message: 'Admin logged out successfully'
+      }, status: :ok
+    else
+      render json: {
+        status: 422,
+        message: 'Something went wrong, session still active'
+      }, status: :unprocessable_entity
+    end
+  end
+end
+```
+
+Resources:
+* https://medium.com/@alessandrahagarty/using-devise-for-authentication-in-a-react-rails-app-f6a0eb87fbd5
+
 ## TO DO
 
 * Loading spinner for each route
@@ -159,6 +278,9 @@ To configure rails to send smtp emails via action_mailer I needed to configure `
 * Add social links
 * Lazy load videos
 * Hover effect for project previews
+
+* CSRF Token issue when logging out and logging back in without page refresh (so refresh on signout?)
+* 
 
 * console errors reloading project pages: look into this library https://github.com/zzarcon/default-passive-events
 * Find a way to have styled components class names show up in devtools (Requires Babel configuration with ESBuild)

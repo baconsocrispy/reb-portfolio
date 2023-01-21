@@ -7,7 +7,7 @@ class ContactMailer < ApplicationMailer
     @message = message
 
     mail(
-      to: 'rebecca.m.eddy@gmail.com', 
+      to: 'carterbacon.code@gmail.com', 
       subject: 'Portfolio Site | New Contact Form Submission'
     )
     render 'send_email'

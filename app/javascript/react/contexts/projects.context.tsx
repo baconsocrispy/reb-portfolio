@@ -7,7 +7,7 @@ type ProjectsContextProps = {
 }
 
 export const ProjectsContext = createContext<ProjectsContextProps>({
-  projectMap: {data: []}
+  projectMap: { data: [] }
 })
 
 // initialize projects provider and define props type

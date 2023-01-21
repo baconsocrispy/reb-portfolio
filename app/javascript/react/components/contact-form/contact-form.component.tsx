@@ -14,7 +14,7 @@ import {
   SubmitSuccessMessage
 } from "./contact-form.styles"
 
-export type FormData = {
+export type ContactFormData = {
   name: string;
   email: string;
   message: string;
@@ -32,7 +32,7 @@ const ContactForm = () => {
     response.then((data) => setSubmitStatus(data))
   }
 
-  // destructure useForm elements, passing FormData type.
+  // destructure useForm elements, passing ContactFormData type.
   // register bundles up all form input values into data 
   // object passed to handlesubmit
   const { 
@@ -40,12 +40,12 @@ const ContactForm = () => {
     handleSubmit, 
     reset,
     formState: { errors } 
-  } = useForm<FormData>()
+  } = useForm<ContactFormData>()
 
   // api call to backend to send form message
   // need to give it the SubmitHandler type from useForm and 
-  // pass FormData type defined above
-  const onFormSubmit: SubmitHandler<FormData> = (data) => {
+  // pass ContactFormData type defined above
+  const onFormSubmit: SubmitHandler<ContactFormData> = (data) => {
     const response = sendContactMessage(data)
     handleSubmitResponse(response)
     reset();
@@ -53,6 +53,7 @@ const ContactForm = () => {
 
   return (
     <FormContainer>
+      {/* handleSubmit passes form data from register to the onFormSubmit callback */}
       <form onSubmit={ handleSubmit(onFormSubmit) }>
         <FormHeader>SEND ME A MESSAGE</FormHeader>
 
