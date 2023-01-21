@@ -5,7 +5,7 @@ class Admins::SessionsController < Devise::SessionsController
   
   def get_admin
     # returns a serialized Admin object with current_admin attributes
-    if (current_admin)
+    if current_admin
       render json: {
         status: {
           code: 200
@@ -18,9 +18,16 @@ class Admins::SessionsController < Devise::SessionsController
       }
     end
   end
-
+  def create
+    self.resource = warden.authenticate!(auth_options)
+    set_flash_message!(:notice, :signed_in)
+    sign_in(resource_name, resource)
+    yield resource if block_given?
+    p resource
+  end
   private 
   def respond_with(resource, _opts = {})
+    p resource
     render json: {
       status: {
         code: 200,

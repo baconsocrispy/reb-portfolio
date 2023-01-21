@@ -280,7 +280,7 @@ Resources:
 * Hover effect for project previews
 
 * CSRF Token issue when logging out and logging back in without page refresh (so refresh on signout?)
-* 
+* add CSRF requirement to get_admiN?
 
 * console errors reloading project pages: look into this library https://github.com/zzarcon/default-passive-events
 * Find a way to have styled components class names show up in devtools (Requires Babel configuration with ESBuild)

@@ -84,16 +84,14 @@ const AdminForm: FC<AdminFormProps> = ({ formType }) => {
   }
 
   const onLogInSubmit: SubmitHandler<AdminFormData> = async (data: AdminFormData) => {
-    // destructure login credentials
-    const { email, password } = data
     // log admin in
-    loginAdmin(email, password)
+    const response = await loginAdmin(data)
     // set current admin
     const adminResponse = await getCurrentAdmin()
     const { data: adminData } = adminResponse
     setAdmin(adminData)
     // navigate to homepage
-    navigate('/')
+    // navigate('/')
   }
 
   return (
@@ -119,23 +117,23 @@ const AdminForm: FC<AdminFormProps> = ({ formType }) => {
           { formType === FORM_TYPES.SIGNUP &&
             <Fragment>
               <AdminFormLabel htmlFor="username">Username</AdminFormLabel>
-              <AdminFormInput type='text' {...register('username', { required: 'Please let me know your name' })} />
+              <AdminFormInput type='text' {...register('username', { required: 'Please enter a username' })} />
             </Fragment>
           }
 
           {/* email */}
           <AdminFormLabel htmlFor="email">Email</AdminFormLabel>
-          <AdminFormInput type='email'{...register('email', { required: 'Please let me know your name' })} />
+          <AdminFormInput type='email'{...register('email', { required: 'Email is required' })} />
 
           {/* password */}
           <AdminFormLabel htmlFor="password">Password</AdminFormLabel>
-          <AdminFormInput type='password' {...register('password', { required: 'Please let me know your name' })} />
+          <AdminFormInput type='password' {...register('password', { required: 'Please enter a password' })} />
 
           {/* password confirmation*/}
           { formType === FORM_TYPES.SIGNUP &&
             <Fragment>
               <AdminFormLabel htmlFor="password_confirmation">Confirm Password</AdminFormLabel>
-              <AdminFormInput type='password' {...register('password_confirmation', { required: 'Please let me know your name' })} />
+              <AdminFormInput type='password' {...register('password_confirmation', { required: 'Password confirmation required' })} />
             </Fragment> 
           }
 

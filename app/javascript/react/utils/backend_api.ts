@@ -1,6 +1,6 @@
+// internal imports
 import { ContactFormData } from "../components/contact-form/contact-form.component";
 import { AdminFormData } from "../components/admin-form/admin-form.component";
-import { SubmitStatus } from "../components/admin-form/admin-form.component";
 
 // ------------ PROJECTS API ------------
 // create a Project type from the json-serialized model
@@ -103,9 +103,10 @@ export const createAdmin = async (data: AdminFormData) => {
   }
 }
 
-export const loginAdmin = async (email: string, password: string) => {
+export const loginAdmin = async (data: AdminFormData) => {
   try {
-    const response = await adminPostRequest('/admin/sign_in', { email, password })
+    const response = await adminPostRequest('/admin/sign_in', data)
+    console.log(response)
     return response
   } catch (error) {
     console.log('Error logging in admin', error)
@@ -121,6 +122,7 @@ const getCSRFToken = () => {
 
 // pass csrf token and adminFormData to backend Post urls and fetch/return data as json
 const adminPostRequest = async (url: string, data: AdminFormData) => {
+  console.log(data)
   const csrfToken = getCSRFToken()
   if (csrfToken) {
     const response = await fetch(url, {
