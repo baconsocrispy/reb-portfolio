@@ -215,16 +215,17 @@ class Admins::RegistrationsController < Devise::RegistrationsController
   end
 end
 ```
-
+I needed to override the default sessions create method.
+I was getting a 401 Unauthorized error until implementing my own method. 
 Sessions Controller:
 
 ```
 class Admins::SessionsController < Devise::SessionsController
-  respond_to :json  
+  respond_to :json
   
   def get_admin
     # returns a serialized Admin object with current_admin attributes
-    if (current_admin)
+    if current_admin
       render json: {
         status: {
           code: 200
@@ -238,14 +239,51 @@ class Admins::SessionsController < Devise::SessionsController
     end
   end
 
-  private 
-  def respond_with(resource, _opts = {})
+  def create
+    # find admin by email
+    @admin = Admin.find_by(email: sign_in_params[:email])
+    return invalid_email_response unless @admin
+    # verify password and login admin or return error response
+    if @admin.valid_password?(sign_in_params[:password])
+      sign_in :admin, @admin
+      return sign_in_success_response(@admin)
+    else
+      return invalid_password_response
+    end
+  end
+
+  private
+  # set params
+  def sign_in_params
+    params.require(:admin).permit :email, :password
+  end
+
+  # response messages
+  def invalid_email_response
+    render json: {
+      status: {
+        code: 401,
+        message: 'Invalid email or password',
+        errors: 'Invalid email address'
+      }
+    }, status: :unauthorized
+  end
+  def invalid_password_response
+    render json: {
+      status: {
+        code: 401,
+        message: 'Invalid email or password',
+        errors: 'Invalid password'
+      }
+    }, status: :unauthorized
+  end
+  def sign_in_success_response(admin)
     render json: {
       status: {
         code: 200,
-        message: 'Admin logged in successfully.'
+        message: 'Admin logged in successfully'
       },
-      data: AdminSerializer.new(resource).serializable_hash[:data][:attributes]
+      data: AdminSerializer.new(admin).serializable_hash[:data][:attributes]
     }, status: :ok
   end
 
@@ -269,17 +307,15 @@ Resources:
 * https://medium.com/@alessandrahagarty/using-devise-for-authentication-in-a-react-rails-app-f6a0eb87fbd5
 
 ## TO DO
-
 * Loading spinner for each route
 * Default settings for components with style variables
 * headers in backend api is showing a type error
 * Restyle about page bio
-* Admin section
+* Sort / Add / Deactivate / Remove Projects
 * Add social links
 * Lazy load videos
 * Hover effect for project previews
-
-* CSRF Token issue when logging out and logging back in without page refresh (so refresh on signout?)
+* Refactor all buttons to just take a button type
 
 * console errors reloading project pages: look into this library https://github.com/zzarcon/default-passive-events
 * Find a way to have styled components class names show up in devtools (Requires Babel configuration with ESBuild)

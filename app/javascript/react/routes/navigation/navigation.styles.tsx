@@ -40,3 +40,16 @@ export const NavigationLink = styled(Link)`
   padding: 0 2%;
   cursor: pointer;
 `
+
+export const LogOutButton = styled.button` 
+  cursor: pointer;
+  background: none;
+  color: var(--theme-font-color-primary);
+  border: 1px solid var(--theme-font-color-primary);
+  font-family: var(--theme-font-family-secondary);
+  white-space: nowrap;
+  &:hover {
+    background-color: var(--theme-font-color-primary);
+    color: white;
+  }
+`

@@ -8,7 +8,8 @@ import {
   LogoContainer, 
   NavigationContainer, 
   NavigationLink, 
-  NavigationLinks 
+  NavigationLinks,
+  LogOutButton
 } from './navigation.styles';
 
 const Navigation = () => {
@@ -25,12 +26,12 @@ const Navigation = () => {
         <LogoContainer to='/'>
           <span>Rebecca Eddy Bacon | Producer</span>
         </LogoContainer>
-        { admin && <button onClick={handleLogOut}>Log Out</button> }
         <NavigationLinks>
           <NavigationLink to='/'>Portfolio</NavigationLink>
           <NavigationLink to='about'>About</NavigationLink>
           <NavigationLink to='contact'>Contact</NavigationLink>
-        </NavigationLinks>  
+          { admin && <LogOutButton onClick={ handleLogOut }>Log Out</LogOutButton> }  
+        </NavigationLinks>
       </NavigationContainer>
       <Outlet />
     </Fragment>

@@ -13,11 +13,13 @@ const AdminPortal = () => {
 
   // onClick handler
   const switchForms = () => {
-    activeForm === FORM_TYPES.SIGNIN ?
-      setActiveForm(FORM_TYPES.SIGNUP) : setActiveForm(FORM_TYPES.SIGNIN)
-
-    inactiveForm === FORM_TYPES.SIGNUP ? 
-      setInactiveForm(FORM_TYPES.SIGNIN) : setInactiveForm(FORM_TYPES.SIGNUP)
+    if (activeForm === FORM_TYPES.SIGNIN) {
+      setActiveForm(FORM_TYPES.SIGNUP)
+      setInactiveForm(FORM_TYPES.SIGNIN)
+    } else {
+      setActiveForm(FORM_TYPES.SIGNIN)
+      setInactiveForm(FORM_TYPES.SIGNUP)
+    }
   }
 
   return (
