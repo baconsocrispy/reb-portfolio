@@ -309,13 +309,13 @@ Resources:
 ## TO DO
 * Loading spinner for each route
 * Default settings for components with style variables
-* headers in backend api is showing a type error
 * Restyle about page bio
 * Sort / Add / Deactivate / Remove Projects
 * Add social links
 * Lazy load videos
 * Hover effect for project previews
 * Refactor all buttons to just take a button type
+* Mobile styling for admin forms
 
 * console errors reloading project pages: look into this library https://github.com/zzarcon/default-passive-events
 * Find a way to have styled components class names show up in devtools (Requires Babel configuration with ESBuild)
