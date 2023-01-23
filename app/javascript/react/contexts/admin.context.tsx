@@ -1,7 +1,9 @@
+// external imports
 import { ReactNode, createContext, useState, useEffect } from "react";
+// internal imports
 import { getCurrentAdmin } from "../utils/backend_api";
 
-// admin type mapped to serialized admin model
+// types
 export type Admin = {
   id: number;
   username: string;
@@ -14,17 +16,17 @@ type AdminContextProps = {
   setAdmin: Function;
 }
 
-// create context to store admin data. set to null if not logged in
+type AdminProviderProps = {
+  children: ReactNode
+}
+
+// context
 export const AdminContext = createContext<AdminContextProps>({
   admin: null,
   setAdmin: () => null
 })
 
-type AdminProviderProps = {
-  children: ReactNode
-}
-
-// create provider to pass admin state across app
+// provider
 export const AdminProvider = ({ children }: AdminProviderProps) => {
   const [ admin, setAdmin ] = useState<Admin | null>(null)
 

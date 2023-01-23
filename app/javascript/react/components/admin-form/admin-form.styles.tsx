@@ -3,10 +3,7 @@ import styled from "styled-components";
 import { FormSubmitButton } from "../contact-form/contact-form.styles";
 
 export const AdminContainer = styled.div`
-  border: 1px solid green;
-  width: 30%;
   text-align: center;
-  margin: auto;
   padding: 2%;
 `
 

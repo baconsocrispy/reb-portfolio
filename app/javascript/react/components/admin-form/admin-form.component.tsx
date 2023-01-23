@@ -6,7 +6,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 // internal imports
 import { AdminContext } from "../../contexts/admin.context";
 import { createAdmin, getCurrentAdmin, loginAdmin } from "../../utils/backend_api";
-import { FormErrorMessage, SubmitSuccessMessage } from "../contact-form/contact-form.styles";
+import { FormErrorMessage } from "../contact-form/contact-form.styles";
 
 // styles
 import { 
@@ -22,14 +22,15 @@ import {
 export enum FORM_TYPES {
   SIGNUP = 'Sign Up',
   SIGNIN = 'Sign In',
-  SIGNOUT = 'Sign Out',
 }
 
 export type AdminFormData = {
-  email: string;
-  password: string;
-  username?:string;
-  password_confirmation?:string
+  admin: {
+    email: string;
+    password: string;
+    username?: string;
+    password_confirmation?: string
+  }  
 }
 
 export type SubmitStatus = {
@@ -45,7 +46,7 @@ export type AdminFormProps = {
 // component
 const AdminForm: FC<AdminFormProps> = ({ formType }) => {
   // state
-  const { admin, setAdmin } = useContext(AdminContext)
+  const { setAdmin } = useContext(AdminContext)
   const [ submitStatus, setSubmitStatus] = useState<SubmitStatus>({});
 
   // navigation
@@ -115,31 +116,31 @@ const AdminForm: FC<AdminFormProps> = ({ formType }) => {
       }
 
       <AdminFormContainer>
-        <form onSubmit={ formType === FORM_TYPES.SIGNUP ? 
+        <form id='admin' onSubmit={ formType === FORM_TYPES.SIGNUP ? 
           handleSubmit(onSignUpSubmit) :
           handleSubmit(onLogInSubmit)}
         >         
-          {/* username (Signup only) */}
+          {/* username (signup only) */}
           { formType === FORM_TYPES.SIGNUP &&
             <Fragment>
               <AdminFormLabel htmlFor="username">Username</AdminFormLabel>
-              <AdminFormInput type='text' {...register('username', { required: 'Please enter a username' })} />
+              <AdminFormInput type='text' {...register('admin.username', { required: 'Please enter a username' })} />
             </Fragment>
           }
 
           {/* email */}
           <AdminFormLabel htmlFor="email">Email</AdminFormLabel>
-          <AdminFormInput type='email'{...register('email', { required: 'Email is required' })} />
+          <AdminFormInput type='email'{...register('admin.email', { required: 'Email is required' })} />
 
           {/* password */}
           <AdminFormLabel htmlFor="password">Password</AdminFormLabel>
-          <AdminFormInput type='password' {...register('password', { required: 'Please enter a password' })} />
+          <AdminFormInput type='password' {...register('admin.password', { required: 'Please enter a password' })} />
 
-          {/* password confirmation (Signup only) */}
+          {/* password confirmation (signup only) */}
           { formType === FORM_TYPES.SIGNUP &&
             <Fragment>
               <AdminFormLabel htmlFor="password_confirmation">Confirm Password</AdminFormLabel>
-              <AdminFormInput type='password' {...register('password_confirmation', { required: 'Password confirmation required' })} />
+              <AdminFormInput type='password' {...register('admin.password_confirmation', { required: 'Password confirmation required' })} />
             </Fragment> 
           }
 

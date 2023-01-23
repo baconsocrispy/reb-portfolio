@@ -1,8 +1,9 @@
+// external imports
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-
+// internal imports
 import { sendContactMessage } from '../../utils/backend_api';
-
+// styles
 import { 
   FormContainer, 
   FormInput, 
@@ -13,28 +14,23 @@ import {
   FormErrorMessage,
   SubmitSuccessMessage
 } from "./contact-form.styles"
-
+// types
 export type ContactFormData = {
   name: string;
   email: string;
   message: string;
 }
-
+// component
 const ContactForm = () => {
   // track success/failure of form submission
   type SubmitStatus = {
     success: boolean;
     message: string;
   }
-
+  // state
   const [ submitStatus, setSubmitStatus ] = useState<SubmitStatus | null>(null)
-  const handleSubmitResponse = (response: Promise<SubmitStatus>) => {
-    response.then((data) => setSubmitStatus(data))
-  }
 
-  // destructure useForm elements, passing ContactFormData type.
-  // register bundles up all form input values into data 
-  // object passed to handlesubmit
+  // destructure useForm elements
   const { 
     register, 
     handleSubmit, 
@@ -42,13 +38,15 @@ const ContactForm = () => {
     formState: { errors } 
   } = useForm<ContactFormData>()
 
-  // api call to backend to send form message
-  // need to give it the SubmitHandler type from useForm and 
-  // pass ContactFormData type defined above
+  // ------------ ON SUBMIT HANDLER ---------------
   const onFormSubmit: SubmitHandler<ContactFormData> = (data) => {
     const response = sendContactMessage(data)
     handleSubmitResponse(response)
     reset();
+  }
+
+  const handleSubmitResponse = (response: Promise<SubmitStatus>) => {
+    response.then((data) => setSubmitStatus(data))
   }
 
   return (
