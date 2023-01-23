@@ -66,7 +66,7 @@ const AdminForm: FC<AdminFormProps> = ({ formType }) => {
     const response = await createAdmin(data)
     // destructure server response
     const { status: responseStatus } = response
-    // if there are errors, update submit status
+    // if there are errors, update submit status and reset fields
     if (responseStatus.errors) {
       setSubmitStatus({
         message: responseStatus.message,
@@ -86,12 +86,23 @@ const AdminForm: FC<AdminFormProps> = ({ formType }) => {
   const onLogInSubmit: SubmitHandler<AdminFormData> = async (data: AdminFormData) => {
     // log admin in
     const response = await loginAdmin(data)
-    // set current admin
-    const adminResponse = await getCurrentAdmin()
-    const { data: adminData } = adminResponse
-    setAdmin(adminData)
-    // navigate to homepage
-    // navigate('/')
+    const { status: responseStatus } = response
+    // if there are errors, update submit status and reset fields
+    if (responseStatus.errors) {
+      setSubmitStatus({
+        message: responseStatus.message,
+        errors: responseStatus.errors
+      })
+      reset()
+    // if logged in successfully, set current admin
+    } else if (responseStatus.code === 200) {
+      // set current admin
+      const adminResponse = await getCurrentAdmin()
+      const { data: adminData } = adminResponse
+      setAdmin(adminData)
+      // navigate to homepage
+      navigate('/')
+    }
   }
 
   return (
@@ -103,17 +114,12 @@ const AdminForm: FC<AdminFormProps> = ({ formType }) => {
         <FormErrorMessage>{ submitStatus.message }</FormErrorMessage>
       }
 
-      {/* form submission success messages */}
-      { submitStatus.code === 200 &&
-        <SubmitSuccessMessage>{submitStatus.message}</SubmitSuccessMessage>
-      }
-
       <AdminFormContainer>
         <form onSubmit={ formType === FORM_TYPES.SIGNUP ? 
           handleSubmit(onSignUpSubmit) :
           handleSubmit(onLogInSubmit)}
         >         
-          {/* username */}
+          {/* username (Signup only) */}
           { formType === FORM_TYPES.SIGNUP &&
             <Fragment>
               <AdminFormLabel htmlFor="username">Username</AdminFormLabel>
@@ -129,7 +135,7 @@ const AdminForm: FC<AdminFormProps> = ({ formType }) => {
           <AdminFormLabel htmlFor="password">Password</AdminFormLabel>
           <AdminFormInput type='password' {...register('password', { required: 'Please enter a password' })} />
 
-          {/* password confirmation*/}
+          {/* password confirmation (Signup only) */}
           { formType === FORM_TYPES.SIGNUP &&
             <Fragment>
               <AdminFormLabel htmlFor="password_confirmation">Confirm Password</AdminFormLabel>
