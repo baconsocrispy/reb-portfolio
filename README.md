@@ -306,6 +306,29 @@ end
 Resources:
 * https://medium.com/@alessandrahagarty/using-devise-for-authentication-in-a-react-rails-app-f6a0eb87fbd5
 
+## DRAG AND DROP / SORTING FUNCTIONALITY
+I used the react-beautiful-dnd library to implement admin reordering of projects.
+
+`yarn add react-beautiful-dnd`
+
+It turns out react-beautiful-dnd does not play nicely with flexbox wrapped containers. 
+I found this fork that provides a workaround when you add the `direction='grid'` prop to the droppable component:
+
+`yarn add react-beautiful-dnd@npm:aligned-rbd`
+
+There's still some wonky movement from components during drag though.
+
+Conditionally disable functionality by passing `isDragDisabled` prop to draggable components.
+
+Add types
+
+`yarn add @types/react-beautiful-dnd`
+
+resources: 
+* https://github.com/atlassian/react-beautiful-dnd/issues/2396
+* modded fork: https://github.com/NadavCohen/react-beautiful-dnd
+
+
 ## TO DO
 * Loading spinner for each route
 * Default settings for components with style variables

@@ -2,7 +2,7 @@ import { ContactFormData } from "../components/contact-form/contact-form.compone
 import { AdminFormData } from "../components/admin-form/admin-form.component";
 
 // ------------ PROJECTS API ------------
-// create a Project type from the json-serialized model
+// types mapped to project json 
 export type ProjectType = {
   id: string;
   type: string;
@@ -18,15 +18,37 @@ export type ProjectType = {
     thumbnail_url?: string;
   }
 }
-// create a projectMap type representing the json response from the backend
+
+
 export type ProjectMap = {
   data: ProjectType[] 
 }
-// api call to backend to retrieve all projects in the db
+
+// gets all projects stored in the backend
 export const getProjectMap = async () => {
   const projectMapResponse = await fetch('projects.json');
   const projectMap: ProjectMap = await projectMapResponse.json();
   return projectMap 
+}
+
+// update project's sort order
+export const updateProjectSortOrder = (sortOrder: number) => {
+
+}
+
+// update project's active status
+export const updateProjectActiveStatus = (activeStatus: boolean) => {
+
+}
+
+// delete project from database
+export const deleteProject = () => {
+
+}
+
+// create a new project
+export const createProject = () => {
+  
 }
 
 // ------------ CONTACT API ------------

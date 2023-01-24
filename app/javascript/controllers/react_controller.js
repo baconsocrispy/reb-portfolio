@@ -18,7 +18,7 @@ export default class extends Controller {
 
     createRoot(app).render(
       // strict mode adds checks/warnings in development mode
-      <React.StrictMode>
+      // <React.StrictMode>
         <BrowserRouter>
           <AdminProvider>
             <ProjectsProvider>
@@ -26,7 +26,7 @@ export default class extends Controller {
             </ProjectsProvider>
           </AdminProvider>
         </BrowserRouter> 
-      </React.StrictMode>
+      // </React.StrictMode>
     );
   }
 }
