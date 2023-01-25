@@ -41,7 +41,6 @@ const ProjectIndex = () => {
   // set column projectIds once projects mount
   useEffect(() => {
     const projectIds = projects ? projects.map(project => project.id) : []
-    console.log(projectIds)
     setDragAndDropState({
       ...dragAndDropState,
       projects: projects,

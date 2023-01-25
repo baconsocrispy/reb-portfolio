@@ -13,13 +13,9 @@ class ProjectsController < ApplicationController
   # POST /projects or /projects.json
   def create
     @project = Project.new(project_params)
-    respond_to do |format|
-      if @project.save
-        return create_success_message(@project)
-      else
-        return create_failure_message(@project)
-      end
-    end
+    @project.save ? 
+      create_success_response(@project) :
+      create_failure_response(@project)
   end
 
   # PATCH/PUT /projects/1 or /projects/1.json
@@ -57,10 +53,7 @@ class ProjectsController < ApplicationController
   # DELETE /projects/1 or /projects/1.json
   def destroy
     @project.destroy
-
-    respond_to do |format|
-      format.json { head :no_content }
-    end
+    return delete_success_response(@project)
   end
 
   private
@@ -78,7 +71,7 @@ class ProjectsController < ApplicationController
     end
 
     # FORMATTED RESPONSE MESSAGES
-    def create_success_message(project)
+    def create_success_response(project)
       render json: {
         status: {
           code: 200,
@@ -87,7 +80,7 @@ class ProjectsController < ApplicationController
         data: ProjectSerializer.new(project).serializable_hash
       }, status: :ok
     end
-    def create_failure_message(project)
+    def create_failure_response(project)
       render json: {
         status: {
           code: 422,
@@ -95,5 +88,13 @@ class ProjectsController < ApplicationController
           errors: project.errors
         }
       }, status: :unprocessable_entity
+    end
+    def delete_success_response(project)
+      render json: {
+        status: {
+          code: 200,
+          message: 'Project deleted successfully'
+        }
+      }
     end
 end

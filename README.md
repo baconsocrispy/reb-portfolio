@@ -343,7 +343,6 @@ Solid and Regular free icons:
 * Loading spinner for each route
 * Default settings for components with style variables
 * Restyle about page bio
-* Add / Deactivate / Remove Projects
 * Add social links
 * Lazy load videos
 * Hover effect for project previews
@@ -354,13 +353,12 @@ Solid and Regular free icons:
 * refactor contact message to pass params to send_email instead of breaking out params in controller
 * Refactor SubmitStatus type to be BackendResponse type
 * new project form receives data as response.data.data.attributes. should be response.data.attributes
+* simplify projectmap api
+* ProjectPage test whether id exists in ProjectIds
 
 * console errors reloading project pages: look into this library https://github.com/zzarcon/default-passive-events
 * Find a way to have styled components class names show up in devtools (Requires Babel configuration with ESBuild)
 
-* Create active/inactive switch for projects
-* Show only active projects when not logged in
-* Delete button w/'are you sure' popup
+* Add 'are you sure' popup onClick for delete button
 * Edit project button for each project
-* Add project form (thumbnail updates after link added)
 * Admin role

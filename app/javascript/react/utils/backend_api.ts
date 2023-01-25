@@ -38,7 +38,7 @@ export const getProjectMap = async () => {
 
 // update project's sort order
 export const updateProjectSortOrder = async (projectIds: ProjectIds) => {
-  const response = await backendRequest('PATCH', 'projects', projectIds)
+  const response = await backendRequest('PATCH', '/projects', projectIds)
 }
 
 // update project's active status
@@ -54,14 +54,15 @@ export const updateProjectActiveStatus = async (projectId: string) => {
 }
 
 // delete project from database
-export const deleteProject = () => {
-
+export const deleteProject = async (id: string) => {
+  const deleteResponse = await backendRequest('DELETE', `/projects/${ id }`, null)
+  return deleteResponse
 }
 
 // create a new project
 export const createProject = async (data:ProjectFormData) => {
   try { 
-    const createProjectResponse = await backendRequest('POST', 'projects', data)
+    const createProjectResponse = await backendRequest('POST', '/projects', data)
     return createProjectResponse
   } catch (error) {
     console.log('Error creating new project', error)
@@ -125,7 +126,7 @@ const getCSRFToken = () => {
   return csrfToken;
 }
 
-// configures and sends backend POST/DELETE requests
+// configures and sends backend POST/PATCH/DELETE requests
 const backendRequest = async (
   method: string, 
   url: string, 
@@ -179,7 +180,7 @@ const getYoutubeVideoId = (youtubeEmbedUrl: string) => {
 } 
 
 const formatThumbnailUrl = (videoId: string) => {
-  const maxResImage = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`
+  const maxResImage = `https://img.youtube.com/vi/${ videoId }/maxresdefault.jpg`
   return maxResImage
 }
 

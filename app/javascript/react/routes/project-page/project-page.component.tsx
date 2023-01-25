@@ -1,18 +1,25 @@
 // external imports
-import { useContext } from "react"
+import { useContext, MouseEvent } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 
 // internal imports
 import { ProjectsContext } from "../../contexts/projects.context"
+import { AdminContext } from "../../contexts/admin.context"
 import Project from "../../components/project/project.component"
+import { PageContent } from "../../components/page-content/page-content.styles"
 
 //api
-import { ProjectType } from '../../utils/backend_api'
+import { deleteProject, ProjectType } from '../../utils/backend_api'
+
+// styles
+import { ButtonContainer, DeleteProjectButton } from "./project-page.styles"
 
 const ProjectPage = () => {
+  // state
+  const { admin } = useContext(AdminContext)
   // navigation
   const navigate = useNavigate();
-  // get current project from the parameters
+  // get current project id from the parameters
   const { id } = useParams()
   // if no id, redirect to homepage
   const projectId = id ? id : navigate('/')
@@ -30,9 +37,23 @@ const ProjectPage = () => {
     
   // destructure project details from project
   const { attributes: projectDetails } = project 
+
+  const handleDeleteProject= async ()  => {
+    const response = await deleteProject(project.id)
+    alert('Project deleted successfully')
+    navigate('/')
+    location.reload();
+  }
   
   return (
-    projectDetails && <Project project={ project }/>
+    <PageContent>
+      { projectDetails && <Project project={project} /> }
+      { admin && 
+        <ButtonContainer>
+          <DeleteProjectButton onClick={ handleDeleteProject }>Delete Project</DeleteProjectButton>
+        </ButtonContainer>
+      }
+    </PageContent>
   )
 }
 
