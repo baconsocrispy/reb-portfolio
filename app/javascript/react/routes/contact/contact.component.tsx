@@ -5,7 +5,7 @@ import image from "../../../../assets/images/contact.png"
 import ContactForm from "../../components/contact-form/contact-form.component"
 import PageHeader from "../../components/page-header/page-header.component"
 
-import { HeroImage } from "../../hero-image/hero-image.styles"
+import { HeroImage } from "../../components/hero-image/hero-image.styles"
 import { PageContent } from "../../components/page-content/page-content.styles"
 
 const Contact = () => {

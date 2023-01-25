@@ -1,5 +1,10 @@
+// external imports
 import { FC } from "react"
+
+// api
 import { ProjectType } from "../../utils/backend_api"
+
+// styles
 import { 
   ProjectContainer, 
   Content, 
@@ -9,10 +14,12 @@ import {
   ProjectHeader
 } from "./project.styles"
 
+// types
 type ProjectProps = {
   project: ProjectType
 }
 
+// component
 const Project:FC<ProjectProps> = ({ project }) => {
   // destructure project details
   const { attributes } = project
@@ -25,6 +32,7 @@ const Project:FC<ProjectProps> = ({ project }) => {
     agency
   } = attributes
 
+  // component elements
   return (
     <ProjectContainer>
       <ProjectHeader>{ title }</ProjectHeader>

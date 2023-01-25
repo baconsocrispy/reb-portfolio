@@ -5,10 +5,11 @@ import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 // internal imports
 import ProjectPreview from "../project-preview/project-preview.component";
 import { ProjectsContext } from "../../contexts/projects.context";
-import { ProjectType } from "../../utils/backend_api";
+import { updateProjectSortOrder, reorderProjects } from "../../utils/backend_api";
 
 //styles
 import { ProjectsContainer } from "./project-index.styles"
+import { AdminContext } from "../../contexts/admin.context";
 
 //types
 type ColumnType = {
@@ -21,10 +22,11 @@ type ColumnType = {
 
 //component
 const ProjectIndex = () => {
+  // admin state
+  const { admin } = useContext(AdminContext)
   // projects state
   const { projectMap } = useContext(ProjectsContext)
   const { data: projects } = projectMap
-
   // draggable state
   const columns: ColumnType = {
     'column-1': {
@@ -39,6 +41,7 @@ const ProjectIndex = () => {
   // set column projectIds once projects mount
   useEffect(() => {
     const projectIds = projects ? projects.map(project => project.id) : []
+    console.log(projectIds)
     setDragAndDropState({
       ...dragAndDropState,
       projects: projects,
@@ -50,9 +53,9 @@ const ProjectIndex = () => {
         }
       }
     })
-  }, [projects])
+  }, [ projects ])
 
-  // drag and drop handlers
+  // drag and drop handler
   const onDragEndHandler = (result: DropResult) => {
     // destructure drop result elements
     const { destination, source, draggableId } = result
@@ -63,7 +66,6 @@ const ProjectIndex = () => {
       destination.droppableId === source.droppableId &&
       destination.index === source.index
     ) return;
-    
     // get droppable column from drag source id
     const column = dragAndDropState.columns[source.droppableId];
     // create a new projectIds object
@@ -77,29 +79,19 @@ const ProjectIndex = () => {
       ...column,
       projectIds: newProjectIds
     };
-
-    const reorderProjects = (projects: ProjectType[], newProjectIds: string[]) => {
-      const newProjects: ProjectType[] = [];
-      newProjectIds.map((id) => {
-        projects.find((project) => {
-          if (project.id === id) {
-            newProjects.push(project)
-          }
-        })
-      })
-      return newProjects
-    }
-
+    // reorder projects and return in a new array
     const newProjects = reorderProjects(projects, newProjectIds)
-    
+    // update the drag and drop state
     setDragAndDropState({
       ...dragAndDropState,
       projects: newProjects,
       columns: {
         ...dragAndDropState.columns,
-        [newColumn.id]: newColumn
+        [ newColumn.id ]: newColumn
       }
     })
+    // update database with new sort order
+    updateProjectSortOrder({ projectIds: newProjectIds })
   }
 
   return (
@@ -116,9 +108,14 @@ const ProjectIndex = () => {
             { ...provided.droppableProps }
           >
             {/* passing index prop down as it's required by draggable */}
-            { dragAndDropState.projects && dragAndDropState.projects.map((project, index) => (
-              <ProjectPreview key={project.id} project={project} index={ index }/>
-            ))}
+            { dragAndDropState.projects && dragAndDropState.projects.map((project, index) => {
+              // display all projects if admin logged in, else only active projects
+              if (admin) {
+                return <ProjectPreview key={ project.id } project={ project } index={ index } />
+              } else if (project.attributes.active_status === true) {
+                return <ProjectPreview key={ project.id } project={ project } index={ index } />
+              }
+            })}
             {/* droppable requires placeholder that handles whitespace on drag */}
             { provided.placeholder }
           </ProjectsContainer>

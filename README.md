@@ -328,17 +328,39 @@ resources:
 * https://github.com/atlassian/react-beautiful-dnd/issues/2396
 * modded fork: https://github.com/NadavCohen/react-beautiful-dnd
 
+## INSTALL FONT AWESOME FONTS
+
+Using font awesome fonts for active status switching, edit and delete linking:
+
+Base and React packages: 
+`yarn add @fortawesome/fontawesome-svg-core @fortawesome/react-fontawesome --save`
+
+Solid and Regular free icons:
+`@fortawesome/free-solid-svg-icons @fortawesome/free-regular-svg-icons --save`
+
 
 ## TO DO
 * Loading spinner for each route
 * Default settings for components with style variables
 * Restyle about page bio
-* Sort / Add / Deactivate / Remove Projects
+* Add / Deactivate / Remove Projects
 * Add social links
 * Lazy load videos
 * Hover effect for project previews
 * Refactor all buttons to just take a button type
 * Mobile styling for admin forms
+* Create types for submitResponse and any apis that are returning 'any' types
+* Make all forms more generic
+* refactor contact message to pass params to send_email instead of breaking out params in controller
+* Refactor SubmitStatus type to be BackendResponse type
+* new project form receives data as response.data.data.attributes. should be response.data.attributes
 
 * console errors reloading project pages: look into this library https://github.com/zzarcon/default-passive-events
 * Find a way to have styled components class names show up in devtools (Requires Babel configuration with ESBuild)
+
+* Create active/inactive switch for projects
+* Show only active projects when not logged in
+* Delete button w/'are you sure' popup
+* Edit project button for each project
+* Add project form (thumbnail updates after link added)
+* Admin role

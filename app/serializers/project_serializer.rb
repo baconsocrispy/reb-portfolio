@@ -3,7 +3,7 @@ class ProjectSerializer
 
   set_type :project
   set_id :id
-  attributes :id, :role, :title, :production_company, :project_url, :thumbnail_url, :client, :date, :agency
+  attributes :id, :role, :title, :production_company, :project_url, :thumbnail_url, :client, :date, :agency, :active_status, :sort_order
 
   cache_options store: Rails.cache, namespace: 'jsonapi-serializer', expires_in: 1.hour
 end

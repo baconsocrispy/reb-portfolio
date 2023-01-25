@@ -14,6 +14,10 @@ Rails.application.routes.draw do
 
   # api routes for managing project CRUD
   resources :projects
+
+  # routes for updating project sort order & active status
+  patch '/projects', to: 'projects#update_projects'
+  patch '/projects/:id/update_active_status', to: 'projects#update_active_status'
   
   # fetch call from react backend_api sendContactMessage method
   post '/contact_mailer', to: 'contact#create'

@@ -1,6 +1,8 @@
 import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const ProjectContainer = styled.div`
+  position: relative;
   width: 80%;
   margin: auto;
   margin-top: 1em;
@@ -30,4 +32,11 @@ export const ProjectTitle = styled.span`
   width: 100%;
   font-weight: var(--theme-font-weight-bold);
   color: var(--theme-font-color-primary);
+`
+
+export const ActiveSwitch = styled(FontAwesomeIcon)`
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  color: gold;
 `

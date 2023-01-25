@@ -1,36 +1,53 @@
+// external imports
 import { Fragment, useContext } from 'react';
 import { Outlet } from 'react-router-dom';
-
+// internal imports
 import { AdminContext } from '../../contexts/admin.context';
 import { logoutCurrentAdmin } from '../../utils/backend_api';
-
+// styles
 import { 
   LogoContainer, 
   NavigationContainer, 
   NavigationLink, 
   NavigationLinks,
-  LogOutButton
+  NavButton,
+  Logo
 } from './navigation.styles';
 
+// component
 const Navigation = () => {
+  // state
   const { admin, setAdmin } = useContext(AdminContext)
 
+  // onClick handlers
   const handleLogOut = async () => {
     const response = await logoutCurrentAdmin()
     setAdmin(null)
   }
 
+  // component elements
   return (
     <Fragment>
       <NavigationContainer>
         <LogoContainer to='/'>
-          <span>Rebecca Eddy Bacon | Producer</span>
+          <Logo>Rebecca Eddy Bacon | Producer</Logo>
         </LogoContainer>
+        {admin &&
+          <NavigationLink to='new-project'>
+            <NavButton>
+              New Project
+            </NavButton>
+          </NavigationLink>
+        }
         <NavigationLinks>
           <NavigationLink to='/'>Portfolio</NavigationLink>
           <NavigationLink to='about'>About</NavigationLink>
           <NavigationLink to='contact'>Contact</NavigationLink>
-          { admin && <LogOutButton onClick={ handleLogOut }>Log Out</LogOutButton> }  
+          { admin && 
+            <NavButton onClick={ handleLogOut }>
+              Log Out
+            </NavButton> 
+          }  
         </NavigationLinks>
       </NavigationContainer>
       <Outlet />

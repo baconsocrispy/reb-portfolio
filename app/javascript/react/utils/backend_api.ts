@@ -1,5 +1,6 @@
 import { ContactFormData } from "../components/contact-form/contact-form.component";
-import { AdminFormData } from "../components/admin-form/admin-form.component";
+import { AdminFormData, SubmitStatus } from "../components/admin-form/admin-form.component";
+import { ProjectFormData } from "../components/project-form/project-form.component";
 
 // ------------ PROJECTS API ------------
 // types mapped to project json 
@@ -16,29 +17,40 @@ export type ProjectType = {
     agency?: string;
     project_url?: string;
     thumbnail_url?: string;
+    active_status: boolean;
   }
 }
-
 
 export type ProjectMap = {
   data: ProjectType[] 
 }
 
+export type ProjectIds = {
+  projectIds: string[]
+}
+
 // gets all projects stored in the backend
 export const getProjectMap = async () => {
-  const projectMapResponse = await fetch('projects.json');
+  const projectMapResponse = await fetch('/projects.json');
   const projectMap: ProjectMap = await projectMapResponse.json();
   return projectMap 
 }
 
 // update project's sort order
-export const updateProjectSortOrder = (sortOrder: number) => {
-
+export const updateProjectSortOrder = async (projectIds: ProjectIds) => {
+  const response = await backendRequest('PATCH', 'projects', projectIds)
 }
 
 // update project's active status
-export const updateProjectActiveStatus = (activeStatus: boolean) => {
-
+export const updateProjectActiveStatus = async (projectId: string) => {
+  try {
+    const statusResponse: boolean = await backendRequest(
+      'PATCH', `projects/${ projectId }/update_active_status`, null
+    )
+    return statusResponse
+  } catch (error) {
+    console.log('Error updating project\'s active status', error)
+  } 
 }
 
 // delete project from database
@@ -47,8 +59,13 @@ export const deleteProject = () => {
 }
 
 // create a new project
-export const createProject = () => {
-  
+export const createProject = async (data:ProjectFormData) => {
+  try { 
+    const createProjectResponse = await backendRequest('POST', 'projects', data)
+    return createProjectResponse
+  } catch (error) {
+    console.log('Error creating new project', error)
+  }
 }
 
 // ------------ CONTACT API ------------
@@ -66,7 +83,7 @@ export const sendContactMessage = async (data: ContactFormData) => {
 // get the current_admin object from rails backend
 export const getCurrentAdmin = async () => {
   try {
-    const getAdminResponse = await fetch('admin/get_admin')
+    const getAdminResponse = await fetch('/admin/get_admin')
     return getAdminResponse.json()
   } catch (error) {
     console.log('Error getting admin', error)
@@ -112,7 +129,7 @@ const getCSRFToken = () => {
 const backendRequest = async (
   method: string, 
   url: string, 
-  data: AdminFormData | ContactFormData | null
+  data: AdminFormData | ContactFormData | ProjectIds | ProjectFormData | null
 ) => {
   const csrfToken = getCSRFToken()
   if (csrfToken) {
@@ -127,3 +144,42 @@ const backendRequest = async (
     return response.json()
   }
 }
+
+// ------------ PROJECT HELPERS ------------ 
+// reorders and returns a new project array according to new sort order
+export const reorderProjects = (projects: ProjectType[], newProjectIds: string[]) => {
+  const newProjects: ProjectType[] = [];
+  newProjectIds.map((id) => {
+    projects.find((project) => {
+      if (project.id === id) newProjects.push(project);
+    })
+  })
+  return newProjects
+}
+
+// format and return youtube thumbnail url from youtube embed url
+export const addThumbnailToProjectFormData = (data: ProjectFormData) => {
+  const projectUrl = data.project.project_url
+  if (!projectUrl) return data;
+  const thumbnailUrl = getThumbnailUrl(projectUrl)
+  data['project']['thumbnail_url'] = thumbnailUrl
+  return data
+}
+
+export const getThumbnailUrl = (youtubeEmbedUrl: string) => {
+  const videoId = getYoutubeVideoId(youtubeEmbedUrl);
+  const thumbnailUrl = formatThumbnailUrl(videoId);
+  return thumbnailUrl
+}
+
+const getYoutubeVideoId = (youtubeEmbedUrl: string) => {
+  const urlElements = youtubeEmbedUrl.split('/');
+  const videoId = urlElements[urlElements.length - 1];
+  return videoId
+} 
+
+const formatThumbnailUrl = (videoId: string) => {
+  const maxResImage = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`
+  return maxResImage
+}
+

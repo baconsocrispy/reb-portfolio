@@ -1,6 +1,6 @@
 // external imports
-import { useContext } from "react"
-import { useNavigate } from "react-router-dom"
+import { Fragment, useContext } from "react"
+import { Outlet, useNavigate } from "react-router-dom"
 
 // internal imports
 import { AdminContext } from "../../contexts/admin.context"
@@ -16,10 +16,13 @@ const Admin = () => {
   // if already logged in, reroute to home
   admin && navigate('/');
 
+  // component elements
   return (
-    <PageContent>
-      <AdminPortal />
-    </PageContent>
+    <Fragment>
+      <PageContent>
+        <AdminPortal />
+      </PageContent>
+    </Fragment>
   )
 }
 

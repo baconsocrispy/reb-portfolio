@@ -1,10 +1,7 @@
-# frozen_string_literal: true
-
 class Admins::SessionsController < Devise::SessionsController
   respond_to :json
-  
+  # returns a serialized Admin object with current_admin attributes
   def get_admin
-    # returns a serialized Admin object with current_admin attributes
     if current_admin
       render json: {
         status: {
@@ -19,6 +16,7 @@ class Admins::SessionsController < Devise::SessionsController
     end
   end
 
+  # overriding default devise create method
   def create
     # find admin by email
     @admin = Admin.find_by(email: sign_in_params[:email])
@@ -33,12 +31,12 @@ class Admins::SessionsController < Devise::SessionsController
   end
 
   private
-  # set params
+  # PARAMS
   def sign_in_params
     params.require(:admin).permit :email, :password
   end
 
-  # response messages
+  # FORMATTED RESPONSE MESSAGES
   def invalid_email_response
     render json: {
       status: {

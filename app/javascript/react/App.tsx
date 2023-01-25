@@ -9,6 +9,7 @@ import Contact from './routes/contact/contact.component';
 import Admin from './routes/admin/admin.component';
 
 import { GlobalStyle } from './global.styles';
+import NewProject from './routes/new-project/new-project.component';
 
 const App = () => {
   return (
@@ -21,7 +22,8 @@ const App = () => {
           <Route path='portfolio/:id/:title' element={ <ProjectPage /> }/>
           <Route path='about' element={ <About /> }/>
           <Route path='contact' element={ <Contact />}/>
-          <Route path='admin' element={<Admin />} />
+          <Route path='admin' element={ <Admin /> } />
+          <Route path='new-project' element={ <NewProject />}/>
         </Route>
       </Routes>
     </Fragment>

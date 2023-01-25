@@ -17,7 +17,7 @@ type ProjectsProviderProps = {
 
 export const ProjectsProvider = ({ children }: ProjectsProviderProps) => {
   // initialize state with an empty projects map
-  const [ projectMap, setProjectMap ] = useState<ProjectMap>({})
+  const [ projectMap, setProjectMap ] = useState<ProjectMap>({ data: []})
 
   // on mount, get all projects from db and set in projects map
   // pass empty array as 2nd argument to ensure it only runs on mount

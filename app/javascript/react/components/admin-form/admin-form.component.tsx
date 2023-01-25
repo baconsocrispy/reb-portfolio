@@ -1,3 +1,9 @@
+/* 
+  This admin form takes a formType string from the FORM_TYPES enum that
+  determines whether to display a sign in form or a sign up form. It makes
+  use of the useForm hook from react-hook-form. 
+*/
+
 // external imports
 import { FC, useContext, useState, Fragment } from "react";
 import { useNavigate } from "react-router-dom";

@@ -1,9 +1,10 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: %i[ update destroy ]
+  respond_to :json
 
   # GET /projects or /projects.json
   def index
-    @projects = Project.all
+    @projects = Project.by_sort_order
     respond_to do |format|
       format.json { render json: ProjectSerializer.new(@projects).serializable_hash.to_json }
     end
@@ -12,14 +13,11 @@ class ProjectsController < ApplicationController
   # POST /projects or /projects.json
   def create
     @project = Project.new(project_params)
-
     respond_to do |format|
       if @project.save
-        format.html { redirect_to project_url(@project), notice: "Project was successfully created." }
-        format.json { render :show, status: :created, location: @project }
+        return create_success_message(@project)
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @project.errors, status: :unprocessable_entity }
+        return create_failure_message(@project)
       end
     end
   end
@@ -28,12 +26,31 @@ class ProjectsController < ApplicationController
   def update
     respond_to do |format|
       if @project.update(project_params)
-        format.html { redirect_to project_url(@project), notice: "Project was successfully updated." }
         format.json { render :show, status: :ok, location: @project }
       else
-        format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @project.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  # PATCH /projects route to update sort order
+  def update_projects
+    # [reroute to update_projects_sort_order???]
+    @projects = Project.all
+    @projects.update_sort_order(update_sort_order_params)
+    respond_to do |format|
+      format.json { render json: ProjectSerializer.new(@projects).serializable_hash.to_json }
+    end
+  end
+
+  # PATCH /projects/:id/update_active_status
+  def update_active_status
+    # [Stronger params here???]
+    @project = Project.find(params[:id])
+    active_status = @project.active_status
+    @project.update!(active_status: !active_status)
+    respond_to do |format|
+      format.json { render json: ProjectSerializer.new(@project).serializable_hash[:data][:attributes][:active_status] }
     end
   end
 
@@ -42,19 +59,41 @@ class ProjectsController < ApplicationController
     @project.destroy
 
     respond_to do |format|
-      format.html { redirect_to projects_url, notice: "Project was successfully destroyed." }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+    # PARAMS
     def set_project
       @project = Project.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def project_params
-      params.fetch(:project, {})
+      params.require(:project).permit(:role, :title, :project_url, :client, :production_company, :agency, :thumbnail_url, :date)
+    end
+
+    def update_sort_order_params
+      params.require(:projectIds)
+    end
+
+    # FORMATTED RESPONSE MESSAGES
+    def create_success_message(project)
+      render json: {
+        status: {
+          code: 200,
+          message: 'Project created successfully'
+        },
+        data: ProjectSerializer.new(project).serializable_hash
+      }, status: :ok
+    end
+    def create_failure_message(project)
+      render json: {
+        status: {
+          code: 422,
+          message: 'Failed to create new project',
+          errors: project.errors
+        }
+      }, status: :unprocessable_entity
     end
 end

@@ -24,6 +24,10 @@ export const LogoContainer = styled(Link)`
   padding: 0 2%;
 `
 
+export const Logo = styled.span`
+  white-space: nowrap;
+`
+
 export const NavigationLinks = styled.div`
   height: 100%;
   display: flex;
@@ -41,13 +45,15 @@ export const NavigationLink = styled(Link)`
   cursor: pointer;
 `
 
-export const LogOutButton = styled.button` 
+export const NavButton = styled.button` 
   cursor: pointer;
   background: none;
   color: var(--theme-font-color-primary);
   border: 1px solid var(--theme-font-color-primary);
   font-family: var(--theme-font-family-secondary);
+  font-size: .75em;
   white-space: nowrap;
+
   &:hover {
     background-color: var(--theme-font-color-primary);
     color: white;

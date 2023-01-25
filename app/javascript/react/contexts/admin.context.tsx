@@ -1,6 +1,7 @@
 // external imports
 import { ReactNode, createContext, useState, useEffect } from "react";
-// internal imports
+
+// api
 import { getCurrentAdmin } from "../utils/backend_api";
 
 // types
