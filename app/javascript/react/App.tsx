@@ -27,9 +27,9 @@ const App = () => {
           <Route path='/portfolio/:id/:title' element={ <ProjectPage /> }/>
           <Route path='/about' element={ <About /> }/>
           <Route path='/contact' element={ <Contact />}/>
-          <Route path='/admin' element={ <Admin /> }/>
+          <Route path='/rebecca' element={ <Admin /> }/>
           <Route path='/new-project' element={ <NewProject />}/>
-          <Route path='/portfolio/:id/edit-project' element={<EditProject />}/>
+          <Route path='/portfolio/:id/edit-project' element={<EditProject />} />
         </Route>
       </Routes>
     </Fragment>
