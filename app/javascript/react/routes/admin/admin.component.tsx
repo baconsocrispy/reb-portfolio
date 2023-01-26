@@ -4,7 +4,7 @@ import AdminPortal from "../../components/admin-portal/admin-portal.component"
 
 // component
 const Admin = () => {
-
+  console.log('TEST')
   // component elements
   return (
     <PageContent>
