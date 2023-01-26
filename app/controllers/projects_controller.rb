@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: %i[ update destroy ]
+  before_action :authenticate_admin!, :except => [ :index ]
   respond_to :json
 
   # GET /projects or /projects.json

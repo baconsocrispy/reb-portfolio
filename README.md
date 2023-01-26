@@ -392,4 +392,3 @@ Resources
 * console errors reloading project pages: look into this library https://github.com/zzarcon/default-passive-events
 * Find a way to have styled components class names show up in devtools (Requires Babel configuration with ESBuild)
 * Add 'are you sure' popup onClick for delete button
-* Forbidden path

@@ -1,11 +1,13 @@
 // external imports
 import { useContext } from 'react'
 import { useParams } from 'react-router-dom'
+import { PageContent } from '../../components/page-content/page-content.styles'
 
 // internal imports
 import ProjectForm from '../../components/project-form/project-form.component'
 import { AdminContext } from '../../contexts/admin.context'
 import { ProjectsContext } from '../../contexts/projects.context'
+import NotFound from '../not-found/not-found.component'
 
 // component
 const EditProject = () => {
@@ -24,8 +26,15 @@ const EditProject = () => {
     (project) => project.id === id
   ) : null
 
+  // component elements
   return (
-    admin && project && <ProjectForm project={ project } /> 
+    <PageContent>
+      { (admin && project) ? 
+          <ProjectForm project={ project } /> :
+          <NotFound />
+      }
+    </PageContent>
+    
   )
 }
 
