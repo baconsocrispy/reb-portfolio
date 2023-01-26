@@ -12,6 +12,8 @@ Rails.application.routes.draw do
     get '/admin/get_admin', to: 'admins/sessions#get_admin'
   end
 
+  get '/admin', to: 'pages#home'
+
   # api routes for managing project CRUD
   resources :projects
 

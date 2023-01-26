@@ -361,3 +361,4 @@ Solid and Regular free icons:
 * Find a way to have styled components class names show up in devtools (Requires Babel configuration with ESBuild)
 * Add 'are you sure' popup onClick for delete button
 * Admin role
+* Forbidden path
