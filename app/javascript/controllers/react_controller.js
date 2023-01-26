@@ -4,7 +4,7 @@ import { Controller } from "@hotwired/stimulus";
 // external react imports
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from "react-router-dom"; // adds routing to child components
-import { createBrowserHistory } from 'history';
+import { createBrowserHistory} from 'history';
 
 // internal react imports
 import { ProjectsProvider } from "../react/contexts/projects.context";
