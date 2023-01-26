@@ -44,7 +44,6 @@ const Navigation = () => {
             </NavButton>
           </NavigationLink>
         }
-        <span>TESTING</span>
         <NavigationLinks>
           <NavigationLink to='/'>Portfolio</NavigationLink>
           <NavigationLink to='about'>About</NavigationLink>
