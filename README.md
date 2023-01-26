@@ -338,7 +338,17 @@ Base and React packages:
 Solid and Regular free icons:
 `@fortawesome/free-solid-svg-icons @fortawesome/free-regular-svg-icons --save`
 
+## STYLED REACT MODAL
+Using styled-react-modal for 'are-you-sure' popups on delete.
+`yarn add styled-react-modal`
+`yarn add @types/styled-react-modal --dev`
+
+Resources:
+* https://www.npmjs.com/package/styled-react-modal
+
 ## TROUBLESHOOTING HEROKU
+
+### Clearing Build Cache & Application.js Not Found Error
 After creating and pushing a new admin portal to Heroku, the new `/admin` path could not be found.
 Everything was working fine in localhost. For a long time I thought it was an issue
 with the BrowserRouter and routing problems. 

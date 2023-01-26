@@ -1,12 +1,14 @@
 // external imports
-import { useContext } from "react"
+import { Fragment, useContext, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
+import { ModalProvider } from 'styled-react-modal';
 
 // internal imports
 import { ProjectsContext } from "../../contexts/projects.context"
 import { AdminContext } from "../../contexts/admin.context"
 import Project from "../../components/project/project.component"
 import { PageContent } from "../../components/page-content/page-content.styles"
+import { ConfirmationModal } from '../../components/confirmation-modal/confirmation-modal.component'
 
 // api
 import { deleteProject, ProjectType } from '../../utils/backend_api'
@@ -15,13 +17,19 @@ import { deleteProject, ProjectType } from '../../utils/backend_api'
 import { 
   ButtonContainer, 
   DeleteProjectButton, 
-  EditProjectButton 
+  EditProjectButton
 } from "./project-page.styles"
+import { 
+  ModalButton, 
+  ModalButtonContainer, 
+  ModalMessage 
+} from "../../components/confirmation-modal/confirmation-modal.styles";
 
 // component
 const ProjectPage = () => {
   // state
   const { admin } = useContext(AdminContext)
+  const [ modalOpen, setModalOpen ] = useState(false)
   // navigation
   const navigate = useNavigate();
   // get current project id from the parameters
@@ -50,6 +58,8 @@ const ProjectPage = () => {
     location.reload();
   }
 
+  const toggleModal = () => setModalOpen(!modalOpen)
+
   const editRoute = `/portfolio/${project.id}/edit-project`
   const handleEditProject = () => navigate(editRoute)
   
@@ -58,14 +68,31 @@ const ProjectPage = () => {
     <PageContent>
       { projectDetails && <Project project={ project }/> }
       { admin && 
-        <ButtonContainer>
-          <EditProjectButton onClick={ handleEditProject }>
-            Edit Project
-          </EditProjectButton>
-          <DeleteProjectButton onClick={ handleDeleteProject }>
-            Delete Project
-          </DeleteProjectButton>
-        </ButtonContainer>
+        <Fragment>
+          <ButtonContainer>
+            <EditProjectButton onClick={ handleEditProject }>
+              Edit Project
+            </EditProjectButton>
+            <DeleteProjectButton onClick={ toggleModal }>
+              Delete Project
+            </DeleteProjectButton>
+          </ButtonContainer>
+          
+          {/* modal helps prevent accidental project deletion */}
+          <ModalProvider>
+            <ConfirmationModal
+              isOpen={ modalOpen }
+              onBackgroundClick={ toggleModal }
+              onEscapeKeydown={ toggleModal }
+            >
+              <ModalMessage>Are you sure you want to delete this project?</ModalMessage>
+              <ModalButtonContainer>
+                <ModalButton onClick={ handleDeleteProject}>Yes</ModalButton>
+                <ModalButton onClick={ toggleModal }>No</ModalButton>
+              </ModalButtonContainer>
+            </ConfirmationModal>
+          </ModalProvider>
+        </Fragment>
       }
     </PageContent>
   )
