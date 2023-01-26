@@ -11,6 +11,7 @@ import Contact from './routes/contact/contact.component';
 import Admin from './routes/admin/admin.component';
 import NewProject from './routes/new-project/new-project.component';
 import EditProject from './routes/edit-project/edit-project.component';
+import NotFound from './routes/not-found/not-found.component';
 
 // styles
 import { GlobalStyle } from './global.styles';
@@ -29,6 +30,7 @@ const App = () => {
           <Route path='/admin' element={<Admin />} />
           <Route path='/new-project' element={ <NewProject />} />
           <Route path='/portfolio/:id/edit-project' element={<EditProject />} />
+          <Route path='*' element={ <NotFound /> } />
         </Route>
       </Routes>
     </Fragment>

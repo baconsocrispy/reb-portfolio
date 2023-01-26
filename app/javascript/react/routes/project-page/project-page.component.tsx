@@ -28,7 +28,6 @@ const ProjectPage = () => {
   const { id } = useParams()
   // if no id, redirect to homepage
   const projectId = id ? id : navigate('/')
-  
   // state
   const { projectMap } = useContext(ProjectsContext) || {}
 
