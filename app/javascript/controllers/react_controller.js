@@ -4,6 +4,7 @@ import { Controller } from "@hotwired/stimulus";
 // external react imports
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from "react-router-dom"; // adds routing to child components
+import { createBrowserHistory } from 'history';
 
 // internal react imports
 import { ProjectsProvider } from "../react/contexts/projects.context";
@@ -13,6 +14,8 @@ import App from "../react/App";
 // Connects to data-controller="react"
 export default class extends Controller {
   connect() {
+    // history object allows for client-side routing in deployment
+    const history = createBrowserHistory();
     const app = document.getElementById('app');
 
     createRoot(app).render(
@@ -20,7 +23,7 @@ export default class extends Controller {
       // disabled for react-beautiful-dnd functionality
 
       // <React.StrictMode>
-        <BrowserRouter>
+        <BrowserRouter history={ history }>
           <AdminProvider>
             <ProjectsProvider>
               <App />
