@@ -28,6 +28,8 @@ const Navigation = () => {
     location.reload()
   }
 
+  const handleLogIn = () => navigate('/admin')
+
   // component elements
   return (
     <Fragment>
@@ -46,10 +48,13 @@ const Navigation = () => {
           <NavigationLink to='/'>Portfolio</NavigationLink>
           <NavigationLink to='about'>About</NavigationLink>
           <NavigationLink to='contact'>Contact</NavigationLink>
-          { admin && 
+          { admin ? 
             <NavButton onClick={ handleLogOut }>
               Log Out
-            </NavButton> 
+            </NavButton> :
+            <NavButton onClick={ handleLogIn }>
+              Log In
+            </NavButton>
           }  
         </NavigationLinks>
       </NavigationContainer>

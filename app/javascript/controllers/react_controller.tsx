@@ -5,7 +5,6 @@ import { Controller } from "@hotwired/stimulus";
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from "react-router-dom"; // adds routing to child components
 
-
 // internal react imports
 import { ProjectsProvider } from "../react/contexts/projects.context";
 import { AdminProvider } from "../react/contexts/admin.context";
