@@ -338,6 +338,23 @@ Base and React packages:
 Solid and Regular free icons:
 `@fortawesome/free-solid-svg-icons @fortawesome/free-regular-svg-icons --save`
 
+## TROUBLESHOOTING HEROKU
+Everything was working fine in localhost but was not working in production.
+Notably, the /admin path could not be found. 
+I put some obvious test spans on the homepage and they didn't appear on deployment.
+So I figured it was an issue with Heroku. I followed these steps to clear Heroku's build cache:
+Install plugin:
+`heroku plugins:install heroku-builds`
+Clear the builds cache:
+`heroku builds:cache:purge -a reb-portfolio`
+Push main branch back to Heroku. (I had to force push).
+`git push -f heroku main`
+Then I got an ActionView Template Error from rails on rebuild that `application.js` was not present in the pipeline.
+
+Resources
+* https://help.heroku.com/18PI5RSY/how-do-i-clear-the-build-cache
+
+
 
 ## TO DO
 * Loading spinner for each route
