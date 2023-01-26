@@ -339,19 +339,32 @@ Solid and Regular free icons:
 `@fortawesome/free-solid-svg-icons @fortawesome/free-regular-svg-icons --save`
 
 ## TROUBLESHOOTING HEROKU
-Everything was working fine in localhost but was not working in production.
-Notably, the /admin path could not be found. 
-I put some obvious test spans on the homepage and they didn't appear on deployment.
-So I figured it was an issue with Heroku. I followed these steps to clear Heroku's build cache:
+After creating and pushing a new admin portal to Heroku, the new `/admin` path could not be found.
+Everything was working fine in localhost. For a long time I thought it was an issue
+with the BrowserRouter and routing problems. 
+
+Over time I got the sense that my changes were not getting pushed to Heroku for some reason.
+I used `heroku run bash` to cd into the file structure to ensure my files were showing up.
+All the new admin files were there, so I explored whether Heroku has issues with caching and serving old builds. 
+It seems it does.
+
+I put some obvious test spans on the homepage and they didn't appear on deployment which suggested this was the cause.
+I followed these steps to clear Heroku's build cache:
+
 Install plugin:
 `heroku plugins:install heroku-builds`
 Clear the builds cache:
 `heroku builds:cache:purge -a reb-portfolio`
 Push main branch back to Heroku. (I had to force push).
 `git push -f heroku main`
+
 Then I got an ActionView Template Error from rails on rebuild that `application.js` was not present in the pipeline.
+
 To resolve this issue, in `environments/production.rb` I set:
+
 `config.assets.compile = true`
+
+After recommitting, repushing and `heroku restart` ing I finally had the site working properly. 
 
 Resources
 * https://help.heroku.com/18PI5RSY/how-do-i-clear-the-build-cache
@@ -379,5 +392,4 @@ Resources
 * console errors reloading project pages: look into this library https://github.com/zzarcon/default-passive-events
 * Find a way to have styled components class names show up in devtools (Requires Babel configuration with ESBuild)
 * Add 'are you sure' popup onClick for delete button
-* Admin role
 * Forbidden path
