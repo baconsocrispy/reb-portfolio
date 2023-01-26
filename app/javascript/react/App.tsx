@@ -1,15 +1,20 @@
+// external imports
 import { Fragment } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
+// route components
 import Navigation from './routes/navigation/navigation.component';
 import Portfolio from './routes/portfolio/portfolio.component';
 import ProjectPage from './routes/project-page/project-page.component';
 import About from './routes/about/about.component';
 import Contact from './routes/contact/contact.component';
 import Admin from './routes/admin/admin.component';
-
-import { GlobalStyle } from './global.styles';
 import NewProject from './routes/new-project/new-project.component';
+import EditProject from './routes/edit-project/edit-project.component';
+
+// styles
+import { GlobalStyle } from './global.styles';
+
 
 const App = () => {
   return (
@@ -24,6 +29,7 @@ const App = () => {
           <Route path='contact' element={ <Contact />}/>
           <Route path='admin' element={ <Admin /> } />
           <Route path='new-project' element={ <NewProject />}/>
+          <Route path='portfolio/:id/edit-project' element={<EditProject />} />
         </Route>
       </Routes>
     </Fragment>

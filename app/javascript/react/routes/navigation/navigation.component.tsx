@@ -1,6 +1,6 @@
 // external imports
 import { Fragment, useContext } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 // internal imports
 import { AdminContext } from '../../contexts/admin.context';
 import { logoutCurrentAdmin } from '../../utils/backend_api';
@@ -18,11 +18,14 @@ import {
 const Navigation = () => {
   // state
   const { admin, setAdmin } = useContext(AdminContext)
+  const navigate = useNavigate()
 
   // onClick handlers
   const handleLogOut = async () => {
     const response = await logoutCurrentAdmin()
     setAdmin(null)
+    navigate('/')
+    location.reload()
   }
 
   // component elements

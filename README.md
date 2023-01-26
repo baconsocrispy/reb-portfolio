@@ -355,10 +355,9 @@ Solid and Regular free icons:
 * new project form receives data as response.data.data.attributes. should be response.data.attributes
 * simplify projectmap api
 * ProjectPage test whether id exists in ProjectIds
-
+* make sure forms are sending null instead of empty strings
+* Error on ProjectPreview component
 * console errors reloading project pages: look into this library https://github.com/zzarcon/default-passive-events
 * Find a way to have styled components class names show up in devtools (Requires Babel configuration with ESBuild)
-
 * Add 'are you sure' popup onClick for delete button
-* Edit project button for each project
 * Admin role

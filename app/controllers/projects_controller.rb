@@ -20,13 +20,9 @@ class ProjectsController < ApplicationController
 
   # PATCH/PUT /projects/1 or /projects/1.json
   def update
-    respond_to do |format|
-      if @project.update(project_params)
-        format.json { render :show, status: :ok, location: @project }
-      else
-        format.json { render json: @project.errors, status: :unprocessable_entity }
-      end
-    end
+    @project.update(project_params) ?
+      update_success_response(@project) :
+      update_failure_response(@project)
   end
 
   # PATCH /projects route to update sort order
@@ -85,6 +81,24 @@ class ProjectsController < ApplicationController
         status: {
           code: 422,
           message: 'Failed to create new project',
+          errors: project.errors
+        }
+      }, status: :unprocessable_entity
+    end
+    def update_success_response(project)
+      render json: {
+        status: {
+          code: 200,
+          message: 'Project updated successfully'
+        },
+        data: ProjectSerializer.new(project).serializable_hash
+      }, status: :ok
+    end
+    def update_failure_response(project)
+      render json: {
+        status: {
+          code: 422,
+          message: 'Failed to update project',
           errors: project.errors
         }
       }, status: :unprocessable_entity

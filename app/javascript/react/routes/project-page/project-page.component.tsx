@@ -1,5 +1,5 @@
 // external imports
-import { useContext, MouseEvent } from "react"
+import { useContext } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 
 // internal imports
@@ -8,12 +8,17 @@ import { AdminContext } from "../../contexts/admin.context"
 import Project from "../../components/project/project.component"
 import { PageContent } from "../../components/page-content/page-content.styles"
 
-//api
+// api
 import { deleteProject, ProjectType } from '../../utils/backend_api'
 
 // styles
-import { ButtonContainer, DeleteProjectButton } from "./project-page.styles"
+import { 
+  ButtonContainer, 
+  DeleteProjectButton, 
+  EditProjectButton 
+} from "./project-page.styles"
 
+// component
 const ProjectPage = () => {
   // state
   const { admin } = useContext(AdminContext)
@@ -38,19 +43,29 @@ const ProjectPage = () => {
   // destructure project details from project
   const { attributes: projectDetails } = project 
 
-  const handleDeleteProject= async ()  => {
+  // onClick Handlers
+  const handleDeleteProject = async ()  => {
     const response = await deleteProject(project.id)
     alert('Project deleted successfully')
     navigate('/')
     location.reload();
   }
+
+  const editRoute = `/portfolio/${project.id}/edit-project`
+  const handleEditProject = () => navigate(editRoute)
   
+  // component elements
   return (
     <PageContent>
-      { projectDetails && <Project project={project} /> }
+      { projectDetails && <Project project={ project }/> }
       { admin && 
         <ButtonContainer>
-          <DeleteProjectButton onClick={ handleDeleteProject }>Delete Project</DeleteProjectButton>
+          <EditProjectButton onClick={ handleEditProject }>
+            Edit Project
+          </EditProjectButton>
+          <DeleteProjectButton onClick={ handleDeleteProject }>
+            Delete Project
+          </DeleteProjectButton>
         </ButtonContainer>
       }
     </PageContent>

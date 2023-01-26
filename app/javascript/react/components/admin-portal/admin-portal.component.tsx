@@ -1,6 +1,7 @@
 // external imports
-import { useState } from "react"
+import { useContext, useState } from "react"
 // internal imports
+import { AdminContext } from "../../contexts/admin.context"
 import AdminForm from "../admin-form/admin-form.component"
 import { FORM_TYPES } from "../admin-form/admin-form.component"
 import { FormSwitch, PortalContainer } from "./admin-portal.styles"
@@ -8,6 +9,7 @@ import { FormSwitch, PortalContainer } from "./admin-portal.styles"
 // component
 const AdminPortal = () => {
   // state
+  const { admin } = useContext(AdminContext)
   const [ activeForm, setActiveForm ] = useState(FORM_TYPES.SIGNIN);
   const [ inactiveForm, setInactiveForm ] = useState(FORM_TYPES.SIGNUP);
 
@@ -25,7 +27,7 @@ const AdminPortal = () => {
   return (
     <PortalContainer>
       <AdminForm formType={ activeForm }/>
-      <FormSwitch onClick={ switchForms }>{ inactiveForm }?</FormSwitch>
+      { admin && <FormSwitch onClick={ switchForms }>{ inactiveForm }?</FormSwitch> }
     </PortalContainer>
   )
 }

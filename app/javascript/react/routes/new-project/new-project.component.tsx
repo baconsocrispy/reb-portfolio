@@ -5,7 +5,7 @@ import ProjectForm from "../../components/project-form/project-form.component"
 const NewProject = () => {
   return (
     <PageContent>
-      <ProjectForm />
+      <ProjectForm project={ null }/>
     </PageContent>
   )
 }

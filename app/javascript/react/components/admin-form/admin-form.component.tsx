@@ -130,23 +130,49 @@ const AdminForm: FC<AdminFormProps> = ({ formType }) => {
           { formType === FORM_TYPES.SIGNUP &&
             <Fragment>
               <AdminFormLabel htmlFor="username">Username</AdminFormLabel>
-              <AdminFormInput type='text' {...register('admin.username', { required: 'Please enter a username' })} />
+              <AdminFormInput 
+                type='text' 
+                {...register(
+                    'admin.username', 
+                    { required: 'Please enter a username' }
+                  )
+                } 
+                autoComplete='username'
+              />
             </Fragment>
           }
 
           {/* email */}
           <AdminFormLabel htmlFor="email">Email</AdminFormLabel>
-          <AdminFormInput type='email'{...register('admin.email', { required: 'Email is required' })} />
+          <AdminFormInput 
+            type='email'
+            {...register(
+                'admin.email', 
+                { required: 'Email is required' }
+              )
+            } 
+            autoComplete='email'  
+          />
 
           {/* password */}
           <AdminFormLabel htmlFor="password">Password</AdminFormLabel>
-          <AdminFormInput type='password' {...register('admin.password', { required: 'Please enter a password' })} />
+          <AdminFormInput 
+            type='password' 
+            {...register('admin.password', { required: 'Please enter a password' })} 
+            autoComplete='current-password'
+          />
 
           {/* password confirmation (signup only) */}
           { formType === FORM_TYPES.SIGNUP &&
             <Fragment>
               <AdminFormLabel htmlFor="password_confirmation">Confirm Password</AdminFormLabel>
-              <AdminFormInput type='password' {...register('admin.password_confirmation', { required: 'Password confirmation required' })} />
+              <AdminFormInput 
+                type='password' 
+                {...register('admin.password_confirmation', 
+                  { required: 'Password confirmation required' })
+                }
+                autoComplete='new-password'
+              />
             </Fragment> 
           }
 

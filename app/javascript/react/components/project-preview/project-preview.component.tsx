@@ -1,8 +1,8 @@
 // external imports
-import { FC, useContext, useState, MouseEvent } from "react"
+import { FC, useContext, useState, MouseEvent, Fragment } from "react"
 import { useNavigate } from "react-router-dom"
 import { Draggable } from "react-beautiful-dnd"
-import { faStar as solidStar } from "@fortawesome/free-solid-svg-icons"
+import { faPencil, faStar as solidStar } from "@fortawesome/free-solid-svg-icons"
 import { faStar as regularStar } from "@fortawesome/free-regular-svg-icons"
 
 // internal imports
@@ -12,6 +12,7 @@ import { ProjectType, updateProjectActiveStatus } from "../../utils/backend_api"
 // styles
 import { 
   ActiveSwitch,
+  EditButton,
   ProjectContainer, 
   ProjectThumbnail, 
   ProjectTitle,
@@ -44,7 +45,7 @@ const ProjectPreview: FC<ProjectPreviewProps> = ({ project, index }) => {
   // ----------- ON CLICK HANDLERS
   // navigate to project page when clicking on a project
   // regex formats title for more readable url
-  const route = `portfolio/${ id }/${ title.replace(/\s+/g, '-')}`
+  const route = `/portfolio/${ id }/${ title.replace(/\s+/g, '-')}`
   const onNavigateHandler = () => navigate(route);
 
   // on click handler for switching active status
@@ -53,6 +54,12 @@ const ProjectPreview: FC<ProjectPreviewProps> = ({ project, index }) => {
     event.stopPropagation();
     const statusResponse = await updateProjectActiveStatus(id)
     setActive(statusResponse)
+  }
+  // on click handler for edit project button (pencil) links to edit form
+  const handleEditButtonClick = (event: MouseEvent<SVGSVGElement>) => {
+    // prevents onNavigateHandler from triggering on click
+    event.stopPropagation();
+    navigate(`/portfolio/${ id }/edit-project`)
   }
   
   return (
@@ -71,14 +78,19 @@ const ProjectPreview: FC<ProjectPreviewProps> = ({ project, index }) => {
           ref={ provided.innerRef }
         >
           { admin &&
-            <ActiveSwitch 
-              icon={ active ? solidStar : regularStar }
-              onClick={ activeSwitchHandler }
-            />
+            <Fragment>
+              <ActiveSwitch
+                icon={active ? solidStar : regularStar}
+                onClick={ activeSwitchHandler }
+              />
+              <EditButton 
+                icon={faPencil}
+                onClick={ handleEditButtonClick } 
+              />
+            </Fragment>
           }
           <ProjectThumbnail src={ thumbnail_url } />
           <ProjectTitle>{ title }</ProjectTitle>
-          {/* <ActiveSwitch active={ active }></ActiveSwitch> */}
         </ProjectContainer>
       )}
     </Draggable>

@@ -40,3 +40,10 @@ export const ActiveSwitch = styled(FontAwesomeIcon)`
   right: 1em;
   color: gold;
 `
+
+export const EditButton = styled(FontAwesomeIcon)`
+  position: absolute;
+  top: 1em;
+  right: 3em;
+  color: gold;
+`

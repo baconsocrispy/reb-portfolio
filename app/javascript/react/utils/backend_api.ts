@@ -1,5 +1,5 @@
 import { ContactFormData } from "../components/contact-form/contact-form.component";
-import { AdminFormData, SubmitStatus } from "../components/admin-form/admin-form.component";
+import { AdminFormData } from "../components/admin-form/admin-form.component";
 import { ProjectFormData } from "../components/project-form/project-form.component";
 
 // ------------ PROJECTS API ------------
@@ -11,7 +11,7 @@ export type ProjectType = {
     id: string;
     role: string;
     title: string;
-    date: Date;
+    date: string;
     client?: string;
     production_company?: string;
     agency?: string;
@@ -29,11 +29,35 @@ export type ProjectIds = {
   projectIds: string[]
 }
 
-// gets all projects stored in the backend
+// create a new project
+export const createProject = async (data:ProjectFormData) => {
+  try { 
+    const createProjectResponse = await backendRequest('POST', '/projects', data);
+    return createProjectResponse;
+  } catch (error) {
+    console.log('Error creating new project', error);
+  }
+}
+
+// get all projects
 export const getProjectMap = async () => {
   const projectMapResponse = await fetch('/projects.json');
   const projectMap: ProjectMap = await projectMapResponse.json();
-  return projectMap 
+  return projectMap;
+}
+
+// update a project
+export const updateProject = async (data: ProjectFormData) => {
+  const projectId = data.project.id;
+  console.log(data)
+  const updateProjectResponse = await backendRequest('PATCH', `/projects/${ projectId }`, data);
+  return updateProjectResponse;
+}
+
+// delete a project
+export const deleteProject = async (id: string) => {
+  const deleteResponse = await backendRequest('DELETE', `/projects/${ id }`, null)
+  return deleteResponse
 }
 
 // update project's sort order
@@ -45,27 +69,11 @@ export const updateProjectSortOrder = async (projectIds: ProjectIds) => {
 export const updateProjectActiveStatus = async (projectId: string) => {
   try {
     const statusResponse: boolean = await backendRequest(
-      'PATCH', `projects/${ projectId }/update_active_status`, null
+      'PATCH', `projects/${projectId}/update_active_status`, null
     )
     return statusResponse
   } catch (error) {
     console.log('Error updating project\'s active status', error)
-  } 
-}
-
-// delete project from database
-export const deleteProject = async (id: string) => {
-  const deleteResponse = await backendRequest('DELETE', `/projects/${ id }`, null)
-  return deleteResponse
-}
-
-// create a new project
-export const createProject = async (data:ProjectFormData) => {
-  try { 
-    const createProjectResponse = await backendRequest('POST', '/projects', data)
-    return createProjectResponse
-  } catch (error) {
-    console.log('Error creating new project', error)
   }
 }
 
@@ -111,8 +119,7 @@ export const loginAdmin = async (data: AdminFormData) => {
 // logout admin
 export const logoutCurrentAdmin = async () => {
   try {
-    const logoutResponse = await backendRequest('DELETE', 'admin/sign_out', null);
-    location.reload();
+    const logoutResponse = await backendRequest('DELETE', '/admin/sign_out', null);
     return logoutResponse;
   } catch (error) {
     console.log('Error logging out', error);
