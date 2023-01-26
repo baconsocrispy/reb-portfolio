@@ -15,7 +15,6 @@ import EditProject from './routes/edit-project/edit-project.component';
 // styles
 import { GlobalStyle } from './global.styles';
 
-
 const App = () => {
   return (
     <Fragment>
