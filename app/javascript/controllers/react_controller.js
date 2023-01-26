@@ -16,6 +16,7 @@ export default class extends Controller {
   connect() {
     // history object allows for client-side routing in deployment
     const history = createBrowserHistory();
+    // get the 
     const app = document.getElementById('app');
 
     createRoot(app).render(
