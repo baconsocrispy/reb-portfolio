@@ -350,6 +350,8 @@ Clear the builds cache:
 Push main branch back to Heroku. (I had to force push).
 `git push -f heroku main`
 Then I got an ActionView Template Error from rails on rebuild that `application.js` was not present in the pipeline.
+To resolve this issue, in `environments/production.rb` I set:
+`config.assets.compile = true`
 
 Resources
 * https://help.heroku.com/18PI5RSY/how-do-i-clear-the-build-cache

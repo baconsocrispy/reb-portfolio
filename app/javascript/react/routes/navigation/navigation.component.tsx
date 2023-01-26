@@ -48,12 +48,9 @@ const Navigation = () => {
           <NavigationLink to='/'>Portfolio</NavigationLink>
           <NavigationLink to='about'>About</NavigationLink>
           <NavigationLink to='contact'>Contact</NavigationLink>
-          { admin ? 
+          { admin && 
             <NavButton onClick={ handleLogOut }>
               Log Out
-            </NavButton> :
-            <NavButton onClick={ handleLogIn }>
-              Log In
             </NavButton>
           }  
         </NavigationLinks>
