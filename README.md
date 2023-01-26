@@ -379,6 +379,15 @@ After recommitting, repushing and `heroku restart` ing I finally had the site wo
 Resources
 * https://help.heroku.com/18PI5RSY/how-do-i-clear-the-build-cache
 
+## HANDLING BROWSER MESSAGES
+
+### SameSite Cookie Attribute
+To get rid of this error message: 
+`Indicate whether to send a cookie in a cross-site request by specifying its SameSite attribute`
+
+
+
+
 
 
 ## TO DO
@@ -401,4 +410,3 @@ Resources
 * Error on ProjectPreview component
 * console errors reloading project pages: look into this library https://github.com/zzarcon/default-passive-events
 * Find a way to have styled components class names show up in devtools (Requires Babel configuration with ESBuild)
-* Add 'are you sure' popup onClick for delete button
