@@ -380,10 +380,8 @@ Resources
 * https://help.heroku.com/18PI5RSY/how-do-i-clear-the-build-cache
 
 ## TO DO
-* Loading spinner for each route
 * Restyle about page bio
 * Add social links
-* Lazy load videos
 * Mobile admin view moving off page because of buttons
 * new project form receives data as response.data.data.attributes. should be response.data.attributes
 * simplify projectmap api
