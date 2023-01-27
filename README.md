@@ -379,34 +379,27 @@ After recommitting, repushing and `heroku restart` ing I finally had the site wo
 Resources
 * https://help.heroku.com/18PI5RSY/how-do-i-clear-the-build-cache
 
-## HANDLING BROWSER MESSAGES
-
-### SameSite Cookie Attribute
-To get rid of this error message: 
-`Indicate whether to send a cookie in a cross-site request by specifying its SameSite attribute`
-
-
-
-
-
-
 ## TO DO
 * Loading spinner for each route
-* Default settings for components with style variables
 * Restyle about page bio
 * Add social links
 * Lazy load videos
-* Hover effect for project previews
-* Refactor all buttons to just take a button type
-* Mobile styling for admin forms
-* Create types for submitResponse and any apis that are returning 'any' types
-* Make all forms more generic
-* refactor contact message to pass params to send_email instead of breaking out params in controller
-* Refactor SubmitStatus type to be BackendResponse type
+* Mobile admin view moving off page because of buttons
 * new project form receives data as response.data.data.attributes. should be response.data.attributes
 * simplify projectmap api
-* ProjectPage test whether id exists in ProjectIds
-* make sure forms are sending null instead of empty strings
+* ProjectPage test whether id exists in ProjectIds / routes to notFound if no id
 * Error on ProjectPreview component
-* console errors reloading project pages: look into this library https://github.com/zzarcon/default-passive-events
+
+Non-critical
+* Refactor all buttons to just take a button type
+* Default settings for components with style variables
+* Hover effect for project previews
+* Mobile styling for admin forms
+* Create types for submitResponse and any apis that are returning 'any' types
+* Refactor SubmitStatus type to be BackendResponse type
+* Make all forms more generic
+* refactor contact message to pass params to send_email instead of breaking out params in controller
+* make sure forms are sending null instead of empty strings
 * Find a way to have styled components class names show up in devtools (Requires Babel configuration with ESBuild)
+* Log user errors
+* Tests
