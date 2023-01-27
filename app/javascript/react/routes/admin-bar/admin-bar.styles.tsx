@@ -5,14 +5,13 @@ export const AdminBarContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  align-items: center;
   padding: 0 2%;
 `
 
 export const AdminLink = styled(Link)`
   height: 100%;
   color: var(--theme-font-color-primary);
-  padding: 0 2%;
+  width: auto;
   cursor: pointer;
 `
 

@@ -382,11 +382,11 @@ Resources
 ## TO DO
 * Restyle about page bio
 * Add social links
-* Mobile admin view moving off page because of buttons
 * new project form receives data as response.data.data.attributes. should be response.data.attributes
 * simplify projectmap api
 * ProjectPage test whether id exists in ProjectIds / routes to notFound if no id
 * Error on ProjectPreview component
+* Youtuve link just copy/paste + Youtube helpers
 
 Non-critical
 * Refactor all buttons to just take a button type
