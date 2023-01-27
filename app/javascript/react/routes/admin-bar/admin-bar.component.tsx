@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom"
 import { AdminContext } from "../../contexts/admin.context"
 
 // api
-import { logoutCurrentAdmin } from "../../utils/backend_api"
+import { logoutCurrentAdmin } from "../../utils/backend-api"
 
 // styles
 import { 

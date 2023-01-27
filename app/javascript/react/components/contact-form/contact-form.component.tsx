@@ -6,7 +6,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import SocialLinks from '../social-links/social-links.component';
 
 // api
-import { sendContactMessage } from '../../utils/backend_api';
+import { sendContactMessage } from '../../utils/backend-api';
 
 // styles
 import { 

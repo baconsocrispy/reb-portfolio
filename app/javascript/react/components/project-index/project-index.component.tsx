@@ -5,7 +5,7 @@ import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 // internal imports
 import ProjectPreview from "../project-preview/project-preview.component";
 import { ProjectsContext } from "../../contexts/projects.context";
-import { updateProjectSortOrder, reorderProjects } from "../../utils/backend_api";
+import { updateProjectSortOrder, reorderProjects } from "../../utils/backend-api";
 
 //styles
 import { ProjectsContainer } from "./project-index.styles"

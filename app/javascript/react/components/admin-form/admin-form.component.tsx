@@ -11,7 +11,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 
 // internal imports
 import { AdminContext } from "../../contexts/admin.context";
-import { createAdmin, getCurrentAdmin, loginAdmin } from "../../utils/backend_api";
+import { createAdmin, getCurrentAdmin, loginAdmin } from "../../utils/backend-api";
 import { FormErrorMessage } from "../contact-form/contact-form.styles";
 
 // styles

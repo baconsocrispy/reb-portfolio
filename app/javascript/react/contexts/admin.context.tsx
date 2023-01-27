@@ -2,7 +2,7 @@
 import { ReactNode, createContext, useState, useEffect } from "react";
 
 // api
-import { getCurrentAdmin } from "../utils/backend_api";
+import { getCurrentAdmin } from "../utils/backend-api";
 
 // types
 export type Admin = {

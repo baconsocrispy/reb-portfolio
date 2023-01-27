@@ -164,30 +164,3 @@ export const reorderProjects = (projects: ProjectType[], newProjectIds: string[]
   })
   return newProjects
 }
-
-// format and return youtube thumbnail url from youtube embed url
-export const addThumbnailToProjectFormData = (data: ProjectFormData) => {
-  const projectUrl = data.project.project_url
-  if (!projectUrl) return data;
-  const thumbnailUrl = getThumbnailUrl(projectUrl)
-  data['project']['thumbnail_url'] = thumbnailUrl
-  return data
-}
-
-export const getThumbnailUrl = (youtubeEmbedUrl: string) => {
-  const videoId = getYoutubeVideoId(youtubeEmbedUrl);
-  const thumbnailUrl = formatThumbnailUrl(videoId);
-  return thumbnailUrl
-}
-
-const getYoutubeVideoId = (youtubeEmbedUrl: string) => {
-  const urlElements = youtubeEmbedUrl.split('/');
-  const videoId = urlElements[urlElements.length - 1];
-  return videoId
-} 
-
-const formatThumbnailUrl = (videoId: string) => {
-  const maxResImage = `https://img.youtube.com/vi/${ videoId }/maxresdefault.jpg`
-  return maxResImage
-}
-

@@ -11,7 +11,7 @@ import { PageContent } from "../../components/page-content/page-content.styles"
 import { ConfirmationModal } from '../../components/confirmation-modal/confirmation-modal.component'
 
 // api
-import { deleteProject, ProjectType } from '../../utils/backend_api'
+import { deleteProject, ProjectType } from '../../utils/backend-api'
 
 // styles
 import { 

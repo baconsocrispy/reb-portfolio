@@ -7,7 +7,7 @@ import { faStar as regularStar } from "@fortawesome/free-regular-svg-icons"
 
 // internal imports
 import { AdminContext } from "../../contexts/admin.context"
-import { ProjectType, updateProjectActiveStatus } from "../../utils/backend_api"
+import { ProjectType, updateProjectActiveStatus } from "../../utils/backend-api"
 
 // styles
 import { 

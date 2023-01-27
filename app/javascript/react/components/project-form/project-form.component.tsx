@@ -10,9 +10,11 @@ import { useNavigate } from "react-router-dom"
 import { 
   createProject, 
   ProjectType, 
-  updateProject,
-  addThumbnailToProjectFormData
-} from "../../utils/backend_api"
+  updateProject
+} from "../../utils/backend-api"
+import { 
+  updateProjectUrlAndThumbnail 
+} from "../../utils/youtube-helpers"
 
 // styles
 import {
@@ -48,8 +50,6 @@ type ProjectFormProps = {
   project: ProjectType | null;
 }
 
-// display thumbnail above form
-
 // component
 const ProjectForm: FC<ProjectFormProps> = ({ project }) => {
   // state
@@ -67,8 +67,8 @@ const ProjectForm: FC<ProjectFormProps> = ({ project }) => {
 
    // ------------ ON SUBMIT HANDLER ---------------
   const onProjectFormSubmitHandler: SubmitHandler<ProjectFormData> = async (data) => {
-    // update project thumbnail_url from project url
-    const projectData = addThumbnailToProjectFormData(data)
+    // update project embed link and thumbnail_url from project url
+    const projectData = updateProjectUrlAndThumbnail(data)
 
     // backend call to create or update a project
     const response = project ? 

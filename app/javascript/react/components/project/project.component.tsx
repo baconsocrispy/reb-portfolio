@@ -2,7 +2,7 @@
 import { FC, useState } from "react"
 
 // api
-import { ProjectType } from "../../utils/backend_api"
+import { ProjectType } from "../../utils/backend-api"
 import Spinner from "../spinner/spinner.component"
 
 // styles

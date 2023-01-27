@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
-import { getProjectMap, ProjectMap } from "../utils/backend_api";
+import { getProjectMap, ProjectMap } from "../utils/backend-api";
 
 // initialize projects context and define props type
 type ProjectsContextProps = {

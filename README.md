@@ -380,12 +380,10 @@ Resources
 * https://help.heroku.com/18PI5RSY/how-do-i-clear-the-build-cache
 
 ## TO DO
-* Restyle about page bio
 * new project form receives data as response.data.data.attributes. should be response.data.attributes
 * simplify projectmap api
 * ProjectPage test whether id exists in ProjectIds / routes to notFound if no id
 * Error on ProjectPreview component
-* Youtuve link just copy/paste + Youtube helpers
 
 Non-critical
 * Refactor all buttons to just take a button type
@@ -401,3 +399,5 @@ Non-critical
 * Log user errors
 * Tests
 * Navigation/AdminBar to components not routes
+* Display thumbnail in projectform after url is entered
+* Restyle about page bio
