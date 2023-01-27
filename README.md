@@ -381,7 +381,6 @@ Resources
 
 ## TO DO
 * Restyle about page bio
-* Add social links
 * new project form receives data as response.data.data.attributes. should be response.data.attributes
 * simplify projectmap api
 * ProjectPage test whether id exists in ProjectIds / routes to notFound if no id
@@ -401,3 +400,4 @@ Non-critical
 * Find a way to have styled components class names show up in devtools (Requires Babel configuration with ESBuild)
 * Log user errors
 * Tests
+* Navigation/AdminBar to components not routes

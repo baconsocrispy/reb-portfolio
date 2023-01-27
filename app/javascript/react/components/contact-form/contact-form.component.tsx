@@ -2,6 +2,9 @@
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
+// internal imports
+import SocialLinks from '../social-links/social-links.component';
+
 // api
 import { sendContactMessage } from '../../utils/backend_api';
 
@@ -14,7 +17,8 @@ import {
   FormMessage, 
   FormHeader,
   FormErrorMessage,
-  SubmitSuccessMessage
+  SubmitSuccessMessage,
+  FormWrapper
 } from "./contact-form.styles"
 
 // types
@@ -55,31 +59,34 @@ const ContactForm = () => {
 
   return (
     <FormContainer>
+      <FormWrapper>
       {/* handleSubmit passes form data from register to the onFormSubmit callback */}
-      <form onSubmit={ handleSubmit(onFormSubmit) }>
-        <FormHeader>SEND ME A MESSAGE</FormHeader>
+        <form onSubmit={ handleSubmit(onFormSubmit) }>
+          <FormHeader>SEND ME A MESSAGE</FormHeader>
 
-        {/* display a success/failure message on form submit */}
-        {submitStatus && submitStatus.success && <SubmitSuccessMessage>{ submitStatus.message }</SubmitSuccessMessage> }
-        {submitStatus && !submitStatus.success && <FormErrorMessage>{ submitStatus.message }</FormErrorMessage>}
+          {/* display a success/failure message on form submit */}
+          {submitStatus && submitStatus.success && <SubmitSuccessMessage>{ submitStatus.message }</SubmitSuccessMessage> }
+          {submitStatus && !submitStatus.success && <FormErrorMessage>{ submitStatus.message }</FormErrorMessage>}
 
-        {/* name input */}
-        {errors.name && <FormErrorMessage>{ errors.name.message }</FormErrorMessage>}
-        <FormLabel htmlFor="name">Name</FormLabel>
-        <FormInput type='text' {...register('name', { required: 'Please let me know your name'})} />
+          {/* name input */}
+          {errors.name && <FormErrorMessage>{ errors.name.message }</FormErrorMessage>}
+          <FormLabel htmlFor="name">Name</FormLabel>
+          <FormInput type='text' {...register('name', { required: 'Please let me know your name'})} />
 
-        {/* email input */}
-        {errors.email && <FormErrorMessage>{ errors.email.message }</FormErrorMessage>}
-        <FormLabel htmlFor="email">Email</FormLabel>
-        <FormInput type='email' {...register('email', { required: 'Email address is required', pattern: /^\S+@\S+$/i})}/>
-        
-        {/* message input */}
-        {errors.message && <FormErrorMessage>{ errors.message.message }</FormErrorMessage>}
-        <FormLabel htmlFor="message">Message</FormLabel>
-        <FormMessage id='message' {...register('message', { required: 'Please add a message' })}/>
+          {/* email input */}
+          {errors.email && <FormErrorMessage>{ errors.email.message }</FormErrorMessage>}
+          <FormLabel htmlFor="email">Email</FormLabel>
+          <FormInput type='email' {...register('email', { required: 'Email address is required', pattern: /^\S+@\S+$/i})}/>
+          
+          {/* message input */}
+          {errors.message && <FormErrorMessage>{ errors.message.message }</FormErrorMessage>}
+          <FormLabel htmlFor="message">Message</FormLabel>
+          <FormMessage id='message' {...register('message', { required: 'Please add a message' })}/>
 
-        <FormSubmitButton type="submit">Submit</FormSubmitButton>
-      </form>
+          <FormSubmitButton type="submit">Submit</FormSubmitButton>
+        </form>
+        <SocialLinks />
+      </FormWrapper>
     </FormContainer>
   )
 }

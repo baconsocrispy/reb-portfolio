@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
+// positions container absolutely on page
 export const FormContainer = styled.div`
-
   padding: 5%;
 
   @media (min-width: 700px) {
@@ -21,6 +21,12 @@ export const FormContainer = styled.div`
       width: 100%;
     }
   }
+`
+
+// helps with relatively positioning inner elements
+export const FormWrapper = styled.div`
+  position: relative;
+  width: 100%;
 `
 
 export const FormHeader = styled.span`
