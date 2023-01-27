@@ -4,6 +4,7 @@ import { Routes, Route } from 'react-router-dom';
 
 // route components
 import Navigation from './routes/navigation/navigation.component';
+import AdminBar from './routes/admin-bar/admin-bar.component';
 import Portfolio from './routes/portfolio/portfolio.component';
 import ProjectPage from './routes/project-page/project-page.component';
 import About from './routes/about/about.component';
@@ -20,18 +21,18 @@ const App = () => {
   return (
     <Fragment>
       <GlobalStyle />
+      <Navigation />
+      <AdminBar />
       <Routes>
-        <Route path='/' element={ <Navigation /> }>
-          <Route index element={ <Portfolio /> } />
-          <Route path='/portfolio' element={ <Portfolio /> } />
-          <Route path='/portfolio/:id/:title' element={ <ProjectPage /> } />
-          <Route path='/about' element={ <About /> }/>
-          <Route path='/contact' element={ <Contact />} />
-          <Route path='/admin' element={<Admin />} />
-          <Route path='/new-project' element={ <NewProject />} />
-          <Route path='/portfolio/:id/edit-project' element={<EditProject />} />
-          <Route path='*' element={ <NotFound /> } />
-        </Route>
+        <Route index element={ <Portfolio /> } />
+        <Route path='/portfolio' element={ <Portfolio /> } />
+        <Route path='/portfolio/:id/:title' element={ <ProjectPage /> } />
+        <Route path='/about' element={ <About /> }/>
+        <Route path='/contact' element={ <Contact />} />
+        <Route path='/admin' element={<Admin />} />
+        <Route path='/new-project' element={ <NewProject />} />
+        <Route path='/portfolio/:id/edit-project' element={<EditProject />} />
+        <Route path='*' element={ <NotFound /> } />
       </Routes>
     </Fragment>
   )

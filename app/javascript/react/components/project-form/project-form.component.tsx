@@ -4,7 +4,7 @@ import { SubmitHandler, useForm } from "react-hook-form"
 import { useNavigate } from "react-router-dom"
 
 // internal imports
-import { FormInput, FormLabel } from "../contact-form/contact-form.styles"
+
 
 // api
 import { 
@@ -20,8 +20,13 @@ import {
   ProjectFormContainer,
   ProjectFormHeader,
   ProjectFormSubmitButton,
-  FormErrorMessage
+  FormErrorMessage,
+  FormDate
 } from "./project-form.styles"
+import { 
+  FormInput, 
+  FormLabel } 
+from "../contact-form/contact-form.styles"
 
 // types
 import { SubmitStatus } from "../admin-form/admin-form.component"
@@ -144,7 +149,7 @@ const ProjectForm: FC<ProjectFormProps> = ({ project }) => {
 
           {errors.project?.date && <FormErrorMessage>{errors.project.date.message}</FormErrorMessage>}
           <FormLabel htmlFor='date'>Date</FormLabel>
-          <FormInput 
+          <FormDate 
             type='date' 
             {...register('project.date', { required: 'Date is required' })} 
             defaultValue={project ? project.attributes.date : ''}

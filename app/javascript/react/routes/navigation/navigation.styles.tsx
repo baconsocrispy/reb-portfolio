@@ -25,7 +25,7 @@ export const LogoContainer = styled(Link)`
 `
 
 export const Logo = styled.span`
-  white-space: nowrap;
+  white-space: nowrap; // prevents logo text from wrapping to new line
 `
 
 export const NavigationLinks = styled.div`
@@ -43,19 +43,4 @@ export const NavigationLink = styled(Link)`
   color: var(--theme-font-color-primary);
   padding: 0 2%;
   cursor: pointer;
-`
-
-export const NavButton = styled.button` 
-  cursor: pointer;
-  background: none;
-  color: var(--theme-font-color-primary);
-  border: 1px solid var(--theme-font-color-primary);
-  font-family: var(--theme-font-family-secondary);
-  font-size: .75em;
-  white-space: nowrap;
-
-  &:hover {
-    background-color: var(--theme-font-color-primary);
-    color: white;
-  }
 `
