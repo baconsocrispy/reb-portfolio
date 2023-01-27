@@ -1,8 +1,9 @@
 // external imports
-import { FC } from "react"
+import { FC, useState } from "react"
 
 // api
 import { ProjectType } from "../../utils/backend_api"
+import Spinner from "../spinner/spinner.component"
 
 // styles
 import { 
@@ -32,15 +33,21 @@ const Project:FC<ProjectProps> = ({ project }) => {
     agency
   } = attributes
 
+  // state
+  const [ loading, setLoading ] = useState(true)
+
   // component elements
   return (
     <ProjectContainer>
       <ProjectHeader>{ title }</ProjectHeader>
       <ContentContainer className="content-container">
+        { loading ? <Spinner /> : null }
         <Content
           src={ project_url }
           allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
+          style={ loading ? { display: 'none' } : { display: 'block' }}
+          onLoad={() => setLoading(false)}
         ></Content>
       </ContentContainer>
 

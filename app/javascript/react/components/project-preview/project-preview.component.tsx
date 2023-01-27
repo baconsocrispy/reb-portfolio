@@ -17,6 +17,7 @@ import {
   ProjectThumbnail, 
   ProjectTitle,
 } from "./project-preview.styles"
+import Spinner from "../spinner/spinner.component"
 
 // types
 type ProjectPreviewProps = {
@@ -38,6 +39,7 @@ const ProjectPreview: FC<ProjectPreviewProps> = ({ project, index }) => {
   // state
   const { admin } = useContext(AdminContext)
   const [ active, setActive ] = useState(active_status)
+  const [ loading, setLoading ] = useState(true)
 
   // navigation
   const navigate = useNavigate();
@@ -89,7 +91,12 @@ const ProjectPreview: FC<ProjectPreviewProps> = ({ project, index }) => {
               />
             </Fragment>
           }
-          <ProjectThumbnail src={ thumbnail_url } />
+          { loading ? <Spinner /> : null }
+          <ProjectThumbnail 
+            src={ thumbnail_url } 
+            style={ loading ? {display: 'none' } : {display: 'block'}}
+            onLoad={() => setLoading(false)}
+          />
           <ProjectTitle>{ title }</ProjectTitle>
         </ProjectContainer>
       )}
