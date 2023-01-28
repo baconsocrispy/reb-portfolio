@@ -380,16 +380,10 @@ Resources
 * https://help.heroku.com/18PI5RSY/how-do-i-clear-the-build-cache
 
 ## TO DO
-* new project form receives data as response.data.data.attributes. should be response.data.attributes
-* simplify projectmap api
-* ProjectPage test whether id exists in ProjectIds / routes to notFound if no id
-* Error on ProjectPreview component
-
 Non-critical
 * Refactor all buttons to just take a button type
 * Default settings for components with style variables
 * Hover effect for project previews
-* Mobile styling for admin forms
 * Create types for submitResponse and any apis that are returning 'any' types
 * Refactor SubmitStatus type to be BackendResponse type
 * Make all forms more generic
@@ -401,3 +395,5 @@ Non-critical
 * Navigation/AdminBar to components not routes
 * Display thumbnail in projectform after url is entered
 * Restyle about page bio
+* NotFound shows briefly on project page after new project creation as the id only goes in db after page refresh
+* Also shows briefly when reloading new and edit forms

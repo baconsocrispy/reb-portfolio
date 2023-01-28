@@ -6,23 +6,15 @@ import { ProjectFormData } from "../components/project-form/project-form.compone
 // types mapped to project json 
 export type ProjectType = {
   id: string;
-  type: string;
-  attributes: {
-    id: string;
-    role: string;
-    title: string;
-    date: string;
-    client?: string;
-    production_company?: string;
-    agency?: string;
-    project_url?: string;
-    thumbnail_url?: string;
-    active_status: boolean;
-  }
-}
-
-export type ProjectMap = {
-  data: ProjectType[] 
+  role: string;
+  title: string;
+  date: string;
+  client?: string;
+  production_company?: string;
+  agency?: string;
+  project_url?: string;
+  thumbnail_url?: string;
+  active_status: boolean;
 }
 
 export type ProjectIds = {
@@ -40,10 +32,10 @@ export const createProject = async (data:ProjectFormData) => {
 }
 
 // get all projects
-export const getProjectMap = async () => {
-  const projectMapResponse = await fetch('/projects.json');
-  const projectMap: ProjectMap = await projectMapResponse.json();
-  return projectMap;
+export const getProjects = async () => {
+  const projectsResponse = await fetch('/projects.json');
+  const projects: ProjectType[] = await projectsResponse.json();
+  return projects;
 }
 
 // update a project

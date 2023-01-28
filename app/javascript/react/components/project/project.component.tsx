@@ -23,7 +23,6 @@ type ProjectProps = {
 // component
 const Project:FC<ProjectProps> = ({ project }) => {
   // destructure project details
-  const { attributes } = project
   const {
     title,
     role,
@@ -31,7 +30,7 @@ const Project:FC<ProjectProps> = ({ project }) => {
     production_company,
     project_url,
     agency
-  } = attributes
+  } = project
 
   // state
   const [ loading, setLoading ] = useState(true)

@@ -1,7 +1,7 @@
 import { ProjectFormData } from "../components/project-form/project-form.component";
 
 // updates project form data with correctly formatted embed and thumbnail
-// links from the generic youtube link
+// links from a generic youtube link
 export const updateProjectUrlAndThumbnail = (data: ProjectFormData) => {
   // get project url from form data, return if empty
   const projectUrl = data.project.project_url
@@ -19,9 +19,10 @@ export const updateProjectUrlAndThumbnail = (data: ProjectFormData) => {
   return data
 }
 
-// get youtube video id from generic youtube link
+// get youtube video id from generic (=) or embed (embed) youtube link
 const getYoutubeVideoId = (youtubeUrl: string) => {
-  const urlElements = youtubeUrl.split('=');
+  const splitString = youtubeUrl.includes('=') ? '=' : 'embed/'
+  const urlElements = youtubeUrl.split(splitString);
   const videoId = urlElements[urlElements.length - 1];
   return videoId
 }

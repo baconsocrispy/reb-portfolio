@@ -7,7 +7,9 @@ class ProjectsController < ApplicationController
   def index
     @projects = Project.by_sort_order
     respond_to do |format|
-      format.json { render json: ProjectSerializer.new(@projects).serializable_hash.to_json }
+      format.json { render json: @projects.map { 
+        |project| ProjectSerializer.new(project).serializable_hash[:data][:attributes]
+      }}
     end
   end
 
@@ -50,7 +52,7 @@ class ProjectsController < ApplicationController
   # DELETE /projects/1 or /projects/1.json
   def destroy
     @project.destroy
-    return delete_success_response(@project)
+    return delete_success_response
   end
 
   private
@@ -72,9 +74,9 @@ class ProjectsController < ApplicationController
       render json: {
         status: {
           code: 200,
-          message: 'Project created successfully'
+          message: 'Project created successfully',
         },
-        data: ProjectSerializer.new(project).serializable_hash
+        data: ProjectSerializer.new(project).serializable_hash[:data][:attributes]
       }, status: :ok
     end
     def create_failure_response(project)
@@ -92,7 +94,7 @@ class ProjectsController < ApplicationController
           code: 200,
           message: 'Project updated successfully'
         },
-        data: ProjectSerializer.new(project).serializable_hash
+        data: ProjectSerializer.new(project).serializable_hash[:data][:attributes]
       }, status: :ok
     end
     def update_failure_response(project)
@@ -104,7 +106,7 @@ class ProjectsController < ApplicationController
         }
       }, status: :unprocessable_entity
     end
-    def delete_success_response(project)
+    def delete_success_response
       render json: {
         status: {
           code: 200,

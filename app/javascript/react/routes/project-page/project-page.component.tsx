@@ -1,5 +1,5 @@
 // external imports
-import { Fragment, useContext, useState } from "react"
+import { Fragment, useContext, useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { ModalProvider } from 'styled-react-modal';
 
@@ -7,8 +7,8 @@ import { ModalProvider } from 'styled-react-modal';
 import { ProjectsContext } from "../../contexts/projects.context"
 import { AdminContext } from "../../contexts/admin.context"
 import Project from "../../components/project/project.component"
-import { PageContent } from "../../components/page-content/page-content.styles"
 import { ConfirmationModal } from '../../components/confirmation-modal/confirmation-modal.component'
+import Spinner from "../../components/spinner/spinner.component";
 
 // api
 import { deleteProject, ProjectType } from '../../utils/backend-api'
@@ -24,50 +24,66 @@ import {
   ModalButtonContainer, 
   ModalMessage 
 } from "../../components/confirmation-modal/confirmation-modal.styles";
+import { 
+  PageContent 
+} from "../../components/page-content/page-content.styles"
+import NotFound from "../not-found/not-found.component";
 
 // component
 const ProjectPage = () => {
   // state
-  const { admin } = useContext(AdminContext)
-  const [ modalOpen, setModalOpen ] = useState(false)
+  const { admin } = useContext(AdminContext);
+  const { projects } = useContext(ProjectsContext);
+  const [ project, setProject ] = useState<ProjectType | null>(null)
+  const [ loading, setLoading ] = useState(true);
+  const [ modalOpen, setModalOpen ] = useState(false);
+
+  // wait for projects to load and set page project accordingly
+  useEffect(() => {
+    projects.length && setLoading(false)
+    const project = projects.find(
+      (project) => project.id.toString() == id
+    )
+    project ? setProject(project) : setProject(null)
+  }, [ projects ])
+
   // navigation
   const navigate = useNavigate();
-  // get current project id from the parameters
+
+  // destructure params
   const { id } = useParams()
-  // if no id, redirect to homepage
-  const projectId = id ? id : navigate('/')
-  // state
-  const { projectMap } = useContext(ProjectsContext) || {}
-
-  // destructure the projects from the response
-  const projects = projectMap ? projectMap.data : []
-
-  // find the current project matching the project id
-  const project = projects ? projects.find(
-      (project) => project.id === projectId
-    ) || {} as ProjectType : {} as ProjectType
-    
-  // destructure project details from project
-  const { attributes: projectDetails } = project 
-
-  // onClick Handlers
+ 
+  // ------------ ON CLICK HANDLERS ---------------
+  // delete project
   const handleDeleteProject = async ()  => {
+    if (!project) return;
     const response = await deleteProject(project.id)
     alert('Project deleted successfully')
     navigate('/')
     location.reload();
   }
-
+  
+  // open and close modal
   const toggleModal = () => setModalOpen(!modalOpen)
 
-  const editRoute = `/portfolio/${project.id}/edit-project`
-  const handleEditProject = () => navigate(editRoute)
+  // navigate to edit page
+  const handleEditProject = () => {
+    if (!project) return;
+    const editRoute = `/portfolio/${project.id}/edit-project`
+    navigate(editRoute)
+  }
   
   // component elements
   return (
     <PageContent>
-      { projectDetails && <Project project={ project }/> }
-      { admin && 
+      {/* wait for project to load before display */}
+      { project && <Project project={ project } /> }
+
+      {/* if no project found after load, display not found */}
+      { (!loading && !project) && <NotFound /> }
+
+      {/* create admin container */}
+      { admin && project &&
         <Fragment>
           <ButtonContainer>
             <EditProjectButton onClick={ handleEditProject }>
@@ -87,7 +103,7 @@ const ProjectPage = () => {
             >
               <ModalMessage>Are you sure you want to delete this project?</ModalMessage>
               <ModalButtonContainer>
-                <ModalButton onClick={ handleDeleteProject}>Yes</ModalButton>
+                <ModalButton onClick={ handleDeleteProject }>Yes</ModalButton>
                 <ModalButton onClick={ toggleModal }>No</ModalButton>
               </ModalButtonContainer>
             </ConfirmationModal>

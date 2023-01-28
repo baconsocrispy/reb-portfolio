@@ -1,6 +1,6 @@
 // external imports
 import { useContext, useState, useEffect } from "react";
-import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
+import { Direction, DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 
 // internal imports
 import ProjectPreview from "../project-preview/project-preview.component";
@@ -22,11 +22,10 @@ type ColumnType = {
 
 //component
 const ProjectIndex = () => {
-  // admin state
+  // state
   const { admin } = useContext(AdminContext)
-  // projects state
-  const { projectMap } = useContext(ProjectsContext)
-  const { data: projects } = projectMap
+  const { projects } = useContext(ProjectsContext)
+  
   // draggable state
   const columns: ColumnType = {
     'column-1': {
@@ -35,12 +34,12 @@ const ProjectIndex = () => {
       projectIds: []
     }
   }
-  // initialize draggable state with columns (only 1 in this case)
+  // initialize draggable state with projects & columns (only 1 in this case)
   const [ dragAndDropState, setDragAndDropState ] = useState({ projects, columns })
 
   // set column projectIds once projects mount
   useEffect(() => {
-    const projectIds = projects ? projects.map(project => project.id) : []
+    const projectIds: string[] = projects.map(project => project.id)
     setDragAndDropState({
       ...dragAndDropState,
       projects: projects,
@@ -93,12 +92,16 @@ const ProjectIndex = () => {
     updateProjectSortOrder({ projectIds: newProjectIds })
   }
 
+  // typescript wasn't recognizing 'grid' as a valid 
+  // direction type so overriding here
+  const grid = 'grid' as Direction
+
   return (
     // drag/drop context wraps around sortable container, 
     // requires onDragEnd property
     <DragDropContext onDragEnd={ onDragEndHandler }>
       {/* droppable requires droppableId prop (grid direction comes from ) */}
-      <Droppable droppableId="column-1" direction='grid'>
+      <Droppable droppableId="column-1" direction={ grid }>
         {/* droppable expects children to be wrapped in a function per below */}
         {provided => (
           <ProjectsContainer
@@ -111,7 +114,7 @@ const ProjectIndex = () => {
               // display all projects if admin logged in, else only active projects
               if (admin) {
                 return <ProjectPreview key={ project.id } project={ project } index={ index } />
-              } else if (project.attributes.active_status === true) {
+              } else if (project.active_status === true) {
                 return <ProjectPreview key={ project.id } project={ project } index={ index } />
               }
             })}

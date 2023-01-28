@@ -14,7 +14,7 @@ import {
 } from "../../utils/backend-api"
 import { 
   updateProjectUrlAndThumbnail 
-} from "../../utils/youtube-helpers"
+} from "../../utils/youtube-help"
 
 // styles
 import {
@@ -77,13 +77,14 @@ const ProjectForm: FC<ProjectFormProps> = ({ project }) => {
 
     // destructure server response
     const { status: responseStatus } = response
+
     // if project created successfully update and reroute to project page
     if (responseStatus.code === 200 ) {
-      const { id, title } = response.data.data.attributes
+      const { id, title } = response.data
       const route = `/portfolio/${id}/${title.replace(/\s+/g, '-')}`
       navigate(route)
       location.reload();
-
+      
       // if errors set submit status
     } else if (responseStatus.errors) {
       setSubmitStatus({
@@ -107,7 +108,7 @@ const ProjectForm: FC<ProjectFormProps> = ({ project }) => {
           <FormInput 
             type='text' 
             {...register('project.project_url')} 
-            defaultValue={ project ? project.attributes.project_url : '' }
+            defaultValue={ project ? project.project_url : '' }
           />
 
           {errors.project?.title && <FormErrorMessage>{errors.project.title.message}</FormErrorMessage>}
@@ -115,7 +116,7 @@ const ProjectForm: FC<ProjectFormProps> = ({ project }) => {
           <FormInput 
             type='text' 
             {...register('project.title', { required: 'Title is required'})}
-            defaultValue={ project ? project.attributes.title : '' }
+            defaultValue={ project ? project.title : '' }
           />
 
           {errors.project?.role && <FormErrorMessage>{errors.project.role.message}</FormErrorMessage>}
@@ -123,28 +124,28 @@ const ProjectForm: FC<ProjectFormProps> = ({ project }) => {
           <FormInput 
             type='text' 
             {...register('project.role', { required: 'Role is required' })}
-            defaultValue={ project ? project.attributes.role : '' }  
+            defaultValue={ project ? project.role : '' }  
           />
 
           <FormLabel htmlFor='client'>Client</FormLabel>
           <FormInput 
             type='text' 
             {...register('project.client')}
-            defaultValue={ project ? project.attributes.client : '' }
+            defaultValue={ project ? project.client : '' }
           />
 
           <FormLabel htmlFor='production_company'>Production Company</FormLabel>
           <FormInput 
             type='text' 
             {...register('project.production_company')}
-            defaultValue={ project ? project.attributes.production_company : '' }
+            defaultValue={ project ? project.production_company : '' }
           />
 
           <FormLabel htmlFor='agency'>Agency</FormLabel>
           <FormInput 
             type='text' 
             {...register('project.agency')}
-            defaultValue={ project ? project.attributes.agency : '' }  
+            defaultValue={ project ? project.agency : '' }  
           />
 
           {errors.project?.date && <FormErrorMessage>{errors.project.date.message}</FormErrorMessage>}
@@ -152,7 +153,7 @@ const ProjectForm: FC<ProjectFormProps> = ({ project }) => {
           <FormDate 
             type='date' 
             {...register('project.date', { required: 'Date is required' })} 
-            defaultValue={project ? project.attributes.date : ''}
+            defaultValue={project ? project.date : ''}
           />
 
           { project && 

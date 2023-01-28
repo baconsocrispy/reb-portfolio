@@ -7,6 +7,9 @@ import { faStar as regularStar } from "@fortawesome/free-regular-svg-icons"
 
 // internal imports
 import { AdminContext } from "../../contexts/admin.context"
+import Spinner from "../spinner/spinner.component"
+
+// api
 import { ProjectType, updateProjectActiveStatus } from "../../utils/backend-api"
 
 // styles
@@ -17,7 +20,6 @@ import {
   ProjectThumbnail, 
   ProjectTitle,
 } from "./project-preview.styles"
-import Spinner from "../spinner/spinner.component"
 
 // types
 type ProjectPreviewProps = {
@@ -28,13 +30,12 @@ type ProjectPreviewProps = {
 // component
 const ProjectPreview: FC<ProjectPreviewProps> = ({ project, index }) => {
   // destructure project elements
-  const { attributes } = project
   const {
     id,
     thumbnail_url,
     title,
     active_status
-  } = attributes
+  } = project
 
   // state
   const { admin } = useContext(AdminContext)
@@ -50,14 +51,14 @@ const ProjectPreview: FC<ProjectPreviewProps> = ({ project, index }) => {
   const route = `/portfolio/${ id }/${ title.replace(/\s+/g, '-')}`
   const onNavigateHandler = () => navigate(route);
 
-  // on click handler for switching active status
+  // on click handler for switching active status (star icon)
   const activeSwitchHandler = async (event: MouseEvent<SVGSVGElement>) => {
     // prevents onNavigateHandler from triggering on click
     event.stopPropagation();
     const statusResponse = await updateProjectActiveStatus(id)
-    setActive(statusResponse)
+    statusResponse && setActive(statusResponse)
   }
-  // on click handler for edit project button (pencil) links to edit form
+  // on click handler for edit project button (pencil icon) links to edit form
   const handleEditButtonClick = (event: MouseEvent<SVGSVGElement>) => {
     // prevents onNavigateHandler from triggering on click
     event.stopPropagation();

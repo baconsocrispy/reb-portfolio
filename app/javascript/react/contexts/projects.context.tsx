@@ -1,35 +1,38 @@
-import React, { createContext, useState, useEffect } from "react";
-import { getProjectMap, ProjectMap } from "../utils/backend-api";
+// external imports
+import { ReactNode, createContext, useState, useEffect } from "react";
 
-// initialize projects context and define props type
+// internal imports
+import { getProjects, ProjectType } from "../utils/backend-api";
+
+// types
 type ProjectsContextProps = {
-  projectMap: ProjectMap
+  projects: ProjectType[];
 }
 
+type ProjectsProviderProps = {
+  children: ReactNode
+}
+
+// context
 export const ProjectsContext = createContext<ProjectsContextProps>({
-  projectMap: { data: [] }
+  projects: []
 })
 
-// initialize projects provider and define props type
-type ProjectsProviderProps = {
-  children: React.ReactNode
-}
-
+// provider
 export const ProjectsProvider = ({ children }: ProjectsProviderProps) => {
-  // initialize state with an empty projects map
-  const [ projectMap, setProjectMap ] = useState<ProjectMap>({ data: []})
+  // initialize state an empty array
+  const [ projects, setProjects ] = useState<ProjectType[]>([])
 
-  // on mount, get all projects from db and set in projects map
-  // pass empty array as 2nd argument to ensure it only runs on mount
+  // call backend getProjects array on mount
   useEffect(() => {
-    const getProjects = async () => {
-      const projects = await getProjectMap();
-      setProjectMap(projects);
+    const getProjectsArray = async () => {
+      const projectsArray = await getProjects();
+      setProjects(projectsArray);
     }
-    getProjects();
+    getProjectsArray();
   }, [])
 
-  const value = { projectMap }
+  const value = { projects }
 
   return <ProjectsContext.Provider value={ value }>{ children }</ProjectsContext.Provider>
 }
