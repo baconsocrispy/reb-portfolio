@@ -58,12 +58,20 @@ if adding static images to the app, you need to add a loader for .png files as w
 
 You might need to restart server
 
-## CREATE THE APP COMPONENT
+## REACT FILE STRUCTURE
+Create a `react` folder in `app/javascript`
 
-Add a 'components' folder to the 'javascript' directory and create an 'app.jsx' file within.
+Create the `App.tsx` component within this folder and import it into the react stimulus controller
 
-use `rafce` snippet to auto-generate the app component code as a const functional component
+Create `components`, `contexts`, `routes` and `utils` folders in the react directory as well.
 
+* Components: stores all custom components and component styles
+* Contexts: stores contexts 
+* Routes: stores route components and styles
+* Utils: stores rails backend request logic and helpers (like youtube url formatting)
+
+TIPS:
+* use `rafce` snippet to auto-generate the app component code as a const functional component
 
 ## INITIALIZE REACT IN THE REACT CONTROLLER
 The React stimulus controller's connect function is where the react root initialization lives in a rails 7 app. 
@@ -74,7 +82,7 @@ Import React (imr) and createRoot:
 `import React from 'react'`
 `import { createRoot } from 'react-dom/client'`
 
-Import the App component from wherever it is housed
+Import the App component from wherever it is housed (react folder)
 
 In the connect() function in the react controller get the root div from the home page.
 
@@ -99,8 +107,8 @@ Add the react types:
 To handle png types, create a `global.d.ts` file in the root directory
 add the declaration below to the file:
 `declare module '*.png';`
-add the path to that file to the include object in the tsconfig file  
 
+add the path to that file to the include object in the tsconfig file  
 
 ## ADD STYLED COMPONENTS
 Using styled components within rails allows you to keep your styles in the same directory as the component. [I think].
@@ -112,7 +120,6 @@ Add styled component types:
 
 ## ADD JSON SERIALIZER FOR FORMATTING API RESPONSES 
 I used the jsonapi-serializer gem, originally built by Netflix, which is supposed to have superior speed.
-Documentation here: https://github.com/jsonapi-serializer/jsonapi-serializer
 
 I had to manually add the gem to the gemfile and bundle install 
 `gem 'jsonapi-serializer'`
@@ -120,6 +127,8 @@ I had to manually add the gem to the gemfile and bundle install
 The serializer itself gets saved in the app/serializers folder as project_serializer.rb
 Documentation is clear.
 
+Resources: 
+* Documentation here: https://github.com/jsonapi-serializer/jsonapi-serializer
 ## SET AND LOAD ENVIRONMENT VARIABLES
 I opted to create a custom `local_env.yml` file in the config folder and added env variables as key/value pairs
 Then I added the code below to the `application.rb` file to load the variables on initialization
@@ -134,10 +143,6 @@ end
 ```
 
 In Heroku production these need to be added as config vars under settings.
-
-## HELP FROM
-* React w/Rails 7 Setup: https://www.youtube.com/watch?v=yoLJXjEV2nM
-* TypeScript: https://www.strictmode.io/articles/setting-up-rails-7-for-typescript-and-react
 
 ## HOSTING SETUP
 To configure rails to send smtp emails via action_mailer I needed to configure `config.action_mailer.smtp_settings` as follows:
@@ -379,7 +384,7 @@ After recommitting, repushing and `heroku restart` ing I finally had the site wo
 Resources
 * https://help.heroku.com/18PI5RSY/how-do-i-clear-the-build-cache
 
-## TO DO
+## FUTURE MODIFICATIONS
 Non-critical
 * Refactor all buttons to just take a button type
 * Default settings for components with style variables
@@ -397,3 +402,7 @@ Non-critical
 * Restyle about page bio
 * NotFound shows briefly on project page after new project creation as the id only goes in db after page refresh
 * Also shows briefly when reloading new and edit forms
+
+## MORE HELP FROM
+* React w/Rails 7 Setup: https://www.youtube.com/watch?v=yoLJXjEV2nM
+* TypeScript: https://www.strictmode.io/articles/setting-up-rails-7-for-typescript-and-react
