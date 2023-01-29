@@ -1,4 +1,49 @@
-## SETUP RAILS
+## PROJECT OVERVIEW
+This is a portfolio website for a Los Angeles based producer, designed to showcase her past work. 
+It leverages Rails 7 to handle the backend and React 18 with TypeScript for the frontend. 
+The production environment is deployed on Heroku. 
+I elected to use React within Rails (rather than separate api) for ease of deployment.
+
+## REQUIREMENTS
+* Clean and simple responsive design for showcasing past video projects
+* Admin section 
+* Allows client to peform CRUD on projects, 
+* Drag-and-drop reorder projects 
+* Activate/deactive projects that are displayed to public
+* Contact section with messaging functionality and link out to social media
+* About Me section 
+
+
+## DEPENDENCIES
+Rails 7 with ESBuild and Postgres
+* Gems: Devise, jsonapi-serializer
+
+React 18 Libraries: 
+* react 
+* react-dom 
+* react-router-dom
+* react-hook-form
+* styled-components
+* react-beautiful-dnd@npm:aligned-rbd (mod allows grid dnd)
+* styled-react-modal
+
+TypeScript
+* @types/react
+* @types/react-dom
+* @types/react-router-dom
+* @types/styled-components
+* @types/react-beautiful-dnd
+
+Fonts
+* @fortawesome/fontawesome-svg-core
+* @fortawesome/react-fontawesome
+* @fortawesome/free-solid-svg-icons
+* @fortawesome/free-regular-svg-icons
+
+Heroku
+* plugins:install heroku-builds (needed to clear Heroku build cache)
+
+## RAILS SETUP
 
 Install rails with a Postgres db and use esbuild for javascript:
 
@@ -65,7 +110,7 @@ Create the `App.tsx` component within this folder and import it into the react s
 
 Create `components`, `contexts`, `routes` and `utils` folders in the react directory as well.
 
-* Components: stores all custom components and component styles
+* Components: stores all custom components and related styled components
 * Contexts: stores contexts 
 * Routes: stores route components and styles
 * Utils: stores rails backend request logic and helpers (like youtube url formatting)
@@ -111,7 +156,7 @@ add the declaration below to the file:
 add the path to that file to the include object in the tsconfig file  
 
 ## ADD STYLED COMPONENTS
-Using styled components within rails allows you to keep your styles in the same directory as the component. [I think].
+Using styled components within rails allows you to keep your styles in the same directory as the component.
 `yarn add styled-components`
 
 Add styled component types:
