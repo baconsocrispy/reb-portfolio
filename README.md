@@ -7,7 +7,8 @@ I elected to use React within Rails (rather than separate api) for ease of deplo
 ## REQUIREMENTS
 * Clean and simple responsive design for showcasing past video projects
 * Admin section 
-* Allows client to peform CRUD on projects, 
+* Allows client to peform CRUD on projects
+* Handles youtube video embed/thumbnail formatting from generic youtube link
 * Drag-and-drop reorder projects 
 * Activate/deactive projects that are displayed to public
 * Contact section with messaging functionality and link out to social media
@@ -33,6 +34,7 @@ TypeScript
 * @types/react-router-dom
 * @types/styled-components
 * @types/react-beautiful-dnd
+* @types/styled-react-modal
 
 Fonts
 * @fortawesome/fontawesome-svg-core
@@ -214,7 +216,7 @@ In `config/initializers/devise.rb` uncomment and set navigation_formats to an em
 Create User/Admin model: `rails g devise admin`
 
 I added a column for username: 
-`rails g migration AddUsernameToAdmins username:string:null:false`
+`rails g migration AddUsernameToAdmins username:string`
 
 Run migration `rails db:migrate`
 
@@ -250,9 +252,10 @@ class Admins::RegistrationsController < Devise::RegistrationsController
     else
       render json: {
         status: {
-          message: "Admin creation failed. #{ 
+          message: "#{ 
             resource.errors.full_messages.to_sentence
-          }"
+          }",
+          errors: resource.errors
         }
       }, status: :unprocessable_entity
     end
@@ -272,9 +275,8 @@ Sessions Controller:
 ```
 class Admins::SessionsController < Devise::SessionsController
   respond_to :json
-  
+  # returns a serialized Admin object with current_admin attributes
   def get_admin
-    # returns a serialized Admin object with current_admin attributes
     if current_admin
       render json: {
         status: {
@@ -289,6 +291,7 @@ class Admins::SessionsController < Devise::SessionsController
     end
   end
 
+  # overriding default devise create method
   def create
     # find admin by email
     @admin = Admin.find_by(email: sign_in_params[:email])
@@ -303,12 +306,12 @@ class Admins::SessionsController < Devise::SessionsController
   end
 
   private
-  # set params
+  # PARAMS
   def sign_in_params
     params.require(:admin).permit :email, :password
   end
 
-  # response messages
+  # FORMATTED RESPONSE MESSAGES
   def invalid_email_response
     render json: {
       status: {
@@ -429,7 +432,7 @@ After recommitting, repushing and `heroku restart` ing I finally had the site wo
 Resources
 * https://help.heroku.com/18PI5RSY/how-do-i-clear-the-build-cache
 
-## FUTURE MODIFICATIONS
+## NEEDS FIXING
 Non-critical
 * Refactor all buttons to just take a button type
 * Default settings for components with style variables
@@ -444,7 +447,7 @@ Non-critical
 * Tests
 * Navigation/AdminBar to components not routes
 * Display thumbnail in projectform after url is entered
-* Restyle about page bio
+* Restyle mobile about page bio
 * NotFound shows briefly on project page after new project creation as the id only goes in db after page refresh
 * Also shows briefly when reloading new and edit forms
 
