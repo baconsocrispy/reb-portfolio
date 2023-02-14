@@ -7,7 +7,6 @@ export const NavigationContainer = styled.div`
   display: flex;
   justify-content: space-between;
   font-family: var(--theme-font-family-secondary);
-  font-weight: 700;
   font-size: .75em;
 
   @media (min-width: 700px) {
