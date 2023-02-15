@@ -56,7 +56,9 @@ const ProjectPreview: FC<ProjectPreviewProps> = ({ project, index }) => {
     // prevents onNavigateHandler from triggering on click
     event.stopPropagation();
     const statusResponse = await updateProjectActiveStatus(id)
-    statusResponse && setActive(statusResponse)
+    statusResponse != undefined && setActive(statusResponse)
+
+    console.log(statusResponse);
   }
   // on click handler for edit project button (pencil icon) links to edit form
   const handleEditButtonClick = (event: MouseEvent<SVGSVGElement>) => {
