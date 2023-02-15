@@ -57,8 +57,6 @@ const ProjectPreview: FC<ProjectPreviewProps> = ({ project, index }) => {
     event.stopPropagation();
     const statusResponse = await updateProjectActiveStatus(id)
     statusResponse != undefined && setActive(statusResponse)
-
-    console.log(statusResponse);
   }
   // on click handler for edit project button (pencil icon) links to edit form
   const handleEditButtonClick = (event: MouseEvent<SVGSVGElement>) => {

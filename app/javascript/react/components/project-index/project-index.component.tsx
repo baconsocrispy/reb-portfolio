@@ -71,7 +71,7 @@ const ProjectIndex = () => {
     // removes 1 object at the original source index
     newProjectIds.splice(source.index, 1);
     // removes 0 items at destination index and inserts source id at that index
-    newProjectIds.splice(destination.index, 0, draggableId);
+    newProjectIds.splice(destination.index, 0, parseInt(draggableId));
     // creates a new column with updated project ids array
     const newColumn = {
       ...column,
@@ -100,7 +100,7 @@ const ProjectIndex = () => {
     // drag/drop context wraps around sortable container, 
     // requires onDragEnd property
     <DragDropContext onDragEnd={ onDragEndHandler }>
-      {/* droppable requires droppableId prop (grid direction comes from ) */}
+      {/* droppable requires droppableId prop (grid direction comes from modded version) */}
       <Droppable droppableId="column-1" direction={ grid }>
         {/* droppable expects children to be wrapped in a function per below */}
         {provided => (
